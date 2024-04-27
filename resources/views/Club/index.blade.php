@@ -82,15 +82,16 @@
                 @endforeach
             </div>
         </div>
-            <div id="posts-container">
+
+        <div id="posts-container">
                 <div class="px-3 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-1 border border-[#424650] rounded bg-[#323741]">
                     <!-- Placeholder for dynamic content -->
-                    <div class="col-span-1" id="club-template">
+                    <div class="col-span-1" id="club-template" style="display: none;">
                         <div class="p-4 overflow-hidden bg-[#2a2d35] border-2 border-[#424650] rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:border-[#827FFF]">
                             <article>
                                 <figure class="overflow-hidden rounded-t-lg">
                                     <a class="club-link" href="#">
-                                        <img class="club-image" src="default-image-url.jpg" alt="Club Name" class="object-cover w-full h-48 duration-500 ease-in-out transform hover:scale-110">
+                                        <img src="default-image-url.jpg" alt="Club Name" class="club-image object-cover w-full h-48 duration-500 ease-in-out transform hover:scale-110">
                                     </a>
                                 </figure>
                                 <div class="p-4 bg-[#2a2d35]">
@@ -113,12 +114,15 @@
     </main>
 </div>
 @include('layout.scripts')
+
 <script>
+
     $(document).ready(function() {
         $('.category-btn').click(function() {
             var categoryId = $(this).data('category-id');
             var urlTemplate = "{{ route('categories.posts', ['category' => ':id']) }}";
             var url = urlTemplate.replace(':id', categoryId);
+
 
             $.ajax({
                 url: url,
@@ -126,20 +130,23 @@
                 success: function(data) {
                     console.log(data);
                     $('#club-posts-container').hide();
-                            data.forEach(function(club) {
-                                var $template = $('#club-template').clone().removeAttr('id').show(); // Clone and remove ID
-                                console.log( $template.find('.user-name').text(club.name));
-                                console.log( $('#posts-container > div').append($template));
-                            });
+                    data.forEach(function(club) {
+                        var $template = $('#club-template').clone().removeAttr('id').show();
+                        $template.find('.user-name').text(club.name);
+                        console.log(club.image);
+                        console.log($template.find('.club-image').attr('src', club.image || 'default-image-url.jpg').attr('alt', club.name));
+                        $('#posts-container > div').append($template);
+                    });
+                    $('#posts-container').show();
+
                 },
                 error: function() {
-                    $('#posts-container > div').html('<div class="error">Failed to load data. Please try again.</div>');
+                    $('#posts-container > div').html('<div class="err75or">Failed to load data. Please try again.</div>');
                 }
             });
         });
     });
+
 </script>
-
-
 </body>
 </html>
