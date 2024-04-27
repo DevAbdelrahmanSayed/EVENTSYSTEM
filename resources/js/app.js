@@ -1,0 +1,3 @@
+import 'flowbite';
+import './bootstrap';
+
