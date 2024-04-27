@@ -116,13 +116,11 @@
 @include('layout.scripts')
 
 <script>
-
     $(document).ready(function() {
         $('.category-btn').click(function() {
             var categoryId = $(this).data('category-id');
             var urlTemplate = "{{ route('categories.posts', ['category' => ':id']) }}";
             var url = urlTemplate.replace(':id', categoryId);
-
 
             $.ajax({
                 url: url,
@@ -130,23 +128,25 @@
                 success: function(data) {
                     console.log(data);
                     $('#club-posts-container').hide();
+                    $('#posts-container > div').children().not('#club-template').remove();
                     data.forEach(function(club) {
                         var $template = $('#club-template').clone().removeAttr('id').show();
-                        $template.find('.user-name').text(club.name);
-                        console.log(club.image);
-                        console.log($template.find('.club-image').attr('src', club.image || 'default-image-url.jpg').attr('alt', club.name));
+                        $template.find('.club-image').attr('src', club.image || 'default-image-url.jpg').attr('alt', club.name);
+                        $template.find('.club-name-link').text(club.name).attr('href', club.link);
+                        $template.find('.club-info').text(club.category + ' • ' + club.date);
+                        $template.find('.user-image').attr('src', club.userImage || 'default-user-image-url.jpg');
+                        $template.find('.user-name').text(club.userName);
+                        $template.find('.user-department').text(club.userDepartment);
                         $('#posts-container > div').append($template);
                     });
                     $('#posts-container').show();
-
                 },
                 error: function() {
-                    $('#posts-container > div').html('<div class="err75or">Failed to load data. Please try again.</div>');
+                    $('#posts-container > div').html('<div class="error">Failed to load data. Please try again.</div>');
                 }
             });
         });
     });
-
 </script>
 </body>
 </html>
