@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CalenderController;
 use App\Http\Controllers\ClubController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\UserController;
@@ -25,6 +27,15 @@ Route::get('/dashboard', function () {
 })->name('dashboard.index')->middleware('auth');
 Route::resource('clubs', ClubController::class)->middleware('auth');
 Route::get('/categories/{category}/posts', [ClubController::class, 'getClubsByCategory'])->name('categories.posts')->middleware('auth');
+
+
+//event
+Route::resource('events', EventController::class)->middleware('auth');
+
+Route::get('calendars', [CalenderController::class, 'calender'])->name('events.calender')->middleware('auth');
+
+Route::resource('calender', CalenderController::class)->middleware('auth');
+
 
 Route::get('/show', function () {
     return view('components.showClub');

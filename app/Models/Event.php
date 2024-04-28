@@ -19,8 +19,11 @@ class Event extends Model
         'club_id',
     ];
 
+
     protected $casts = [
-        'date_event' => 'date',
+        'date_event' => 'datetime:F/d/Y',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     protected function club(): BelongsTo

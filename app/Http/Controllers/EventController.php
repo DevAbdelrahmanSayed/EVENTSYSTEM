@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\event;
 use Illuminate\Http\Request;
 
-class eventController extends Controller
+class EventController extends Controller
 {
-    public function index()
-    {
-        return event::all();
+    public function index() {
+
+        $events = Event::all();
+        return response()->json($events);
     }
+
 
     public function store(Request $request)
     {
