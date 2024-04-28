@@ -1,4 +1,3 @@
-
 <head>
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,7 +9,6 @@
     <link rel="stylesheet" href="{{asset('assets/css/icons.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/libs/swiper-bundle.min.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/css/tailwind.css')}}"/>
-
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     @vite(['resources/css/app.css','resources/js/app.js'])

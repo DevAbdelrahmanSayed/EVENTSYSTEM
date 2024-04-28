@@ -16,7 +16,7 @@ class EventFactory extends Factory
             'user_id' => \App\Models\User::factory(),
             'represented_id' => \App\Models\User::factory(),
             'name' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
             'service' => $this->faker->word,
             'location' => $this->faker->address,
             'date_event' => $this->faker->dateTimeBetween('+1 week', '+1 month'),

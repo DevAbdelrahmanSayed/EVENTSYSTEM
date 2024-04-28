@@ -13,6 +13,7 @@ class Post extends Model
         'name',
         'description',
         'image',
+        'club_id'
     ];
 
     protected function club(): BelongsTo

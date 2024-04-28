@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ClubResource;
 use App\Models\Category;
 use App\Models\Club;
 use App\Models\Post;
@@ -19,14 +20,16 @@ class ClubController extends Controller
     {
         return view('clubs.create');
     }
-    public function getPosts(Category $category)
+
+    public function getClubsByCategory(Category $category)
     {
-        $clubs = $category->clubs;
-        return response()->json($clubs);
+        $category = Category::with(['clubs.user','clubs.category'])->findOrFail($category->id);
+        if ($category->clubs->isEmpty()) {
+            return response()->json(['message' => 'No clubs found for this category'], 404);
+        }
+        return ClubResource::collection($category->clubs);
     }
 
-
-    // Store a newly created club in storage.
     public function store(Request $request)
     {
         $request->validate([
@@ -42,11 +45,10 @@ class ClubController extends Controller
     // Display the specified club and related posts by category.
     public function show(Club $club)
     {
-        $relatedPosts = Post::whereHas('club', function ($query) use ($club) {
-            $query->where('category_id', $club->category_id);
-        })->get();
+        $club = Club::findOrFail($club->id);
+        $club->with('posts','events')->latest();
 
-        return view('clubs.show', compact('club', 'relatedPosts'));
+        return view('Club.details', compact('club'));
     }
 
     // Show the form for editing the specified club.

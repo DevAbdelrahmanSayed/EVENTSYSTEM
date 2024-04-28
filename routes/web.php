@@ -24,7 +24,7 @@ Route::get('/dashboard', function () {
     return view('components.dashboard');
 })->name('dashboard.index')->middleware('auth');
 Route::resource('clubs', ClubController::class)->middleware('auth');
-Route::get('/categories/{category}/posts', [ClubController::class, 'getPosts'])->name('categories.posts')->middleware('auth');
+Route::get('/categories/{category}/posts', [ClubController::class, 'getClubsByCategory'])->name('categories.posts')->middleware('auth');
 
 Route::get('/show', function () {
     return view('components.showClub');

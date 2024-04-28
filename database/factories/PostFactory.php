@@ -15,7 +15,7 @@ class PostFactory extends Factory
             'club_id' => \App\Models\Club::factory(),
             'user_id' => \App\Models\User::factory(),
             'name' => $this->faker->sentence(6),
-            'description' => $this->faker->paragraph,
+            'description' => $this->faker->sentence,
             'image' => $this->faker->imageUrl(640, 480, 'posts', true)
         ];
     }

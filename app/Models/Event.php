@@ -16,6 +16,7 @@ class Event extends Model
         'service',
         'location',
         'date_event',
+        'club_id',
     ];
 
     protected $casts = [
