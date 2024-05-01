@@ -22,15 +22,6 @@ Route::get('/', function () {
     return view('login');
 })->name('login');
 
-Route::get('body/cli', function () {
-});
-
-Route::get('/sks', function () {
-    return view('Dashboard.club');
-});
-
-
-
 Route::get('/dashboard', function () {
     return view('components.dashboard');
 })->name('dashboard.index')->middleware('auth');

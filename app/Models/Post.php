@@ -19,12 +19,12 @@ class Post extends Model
         'status'
     ];
 
-    protected function club(): BelongsTo
+    public function club(): BelongsTo
     {
         return $this->belongsTo(Club::class);
     }
 
-    protected function user(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
