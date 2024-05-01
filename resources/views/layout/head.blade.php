@@ -8,7 +8,6 @@
     <link rel="icon" href="{{asset('assets/images/logo.svg')}}" type="image/svg+xml"/>
     <link rel="stylesheet" href="{{asset('assets/css/icons.css')}}"/>
     <link rel="stylesheet" href="{{asset('assets/libs/swiper-bundle.min.css')}}"/>
-    <link rel="stylesheet" href="{{asset('assets/css/tailwind.css')}}"/>
     @yield('head')
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

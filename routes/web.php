@@ -22,9 +22,19 @@ Route::get('/', function () {
     return view('login');
 })->name('login');
 
+Route::get('body/cli', function () {
+});
+
+Route::get('/sks', function () {
+    return view('Dashboard.club');
+});
+
+
+
 Route::get('/dashboard', function () {
     return view('components.dashboard');
 })->name('dashboard.index')->middleware('auth');
+
 Route::resource('clubs', ClubController::class)->middleware('auth');
 Route::get('/categories/{category}/posts', [ClubController::class, 'getClubsByCategory'])->name('categories.posts')->middleware('auth');
 
@@ -41,9 +51,6 @@ Route::get('calendars', [CalenderController::class, 'calender'])->name('events.c
 Route::resource('calender', CalenderController::class)->middleware('auth');
 
 
-Route::get('/show', function () {
-    return view('components.showClub');
-})->name('showClub.index')->middleware('auth');
 
 Route::get('/profile', function () {
     return view('components.profile');

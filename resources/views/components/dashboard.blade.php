@@ -19,7 +19,7 @@
                 <div class="p-4 overflow-hidden bg-[#2a2d35] border-2 border-[#424650] rounded-lg shadow-lg transform transition duration-500 hover:scale-105 hover:border-[#827FFF]">
                     <article>
                         <figure class="overflow-hidden rounded-t-lg">
-                            <a href="{{route('showClub.index')}}"> <img src="{{asset('assets/image/prof.jpg')}}"
+                            <a href=""> <img src="{{asset('assets/image/prof.jpg')}}"
                                                                         alt="A day in the life of a professional fashion designer"
                                                                         class="object-cover w-full h-48 duration-500 ease-in-out transform hover:scale-110"></a>
                         </figure>

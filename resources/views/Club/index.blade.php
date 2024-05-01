@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('head')
+    <link rel="stylesheet" href="{{asset('assets/css/tailwind.css')}}"/>
+
+@endsection
 @section('content')
     <div class="antialiased bg-[#23242A]">
         @include('layout.sidebar')
