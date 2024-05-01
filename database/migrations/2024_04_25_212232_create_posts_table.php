@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('description');
             $table->string('image');
+            $table->string('type');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending')->change();
             $table->timestamps();
         });
     }

@@ -13,10 +13,13 @@ class Event extends Model
     protected $fillable = [
         'name',
         'description',
-        'service',
+        'tag',
         'location',
         'date_event',
         'club_id',
+        'start_time',
+        'end_time',
+        'event_category_id'
     ];
 
 
@@ -36,8 +39,13 @@ class Event extends Model
         return $this->belongsTo(User::class);
     }
 
-    protected function reprsented(): BelongsTo
+    protected function represented(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
+    public function category()
+    {
+        return $this->belongsTo(EventCategory::class, 'event_category_id');
+    }
+
 }

@@ -17,13 +17,11 @@ class LoginController extends Controller
     {
         if (Auth::attempt($request->only('un_id', 'password'))) {
             $request->session()->regenerate();
-            flash('You have logged in successfully As '.Auth::user()->type)->success();
-
+            flash('You have logged in successfully As ' . Auth::user()->type)->success();
             return response()->json(['redirectTo' => route('dashboard.index')]);
         }
         flash('The provided credentials do not match our records.')->error();
 
-        return response()->json(['error' => 'The provided credentials do not match our records.'], 422);
+        return response()->json(['errors' => ['all_errors' => ['The provided credentials do not match our records.']]], 422);
     }
-
 }

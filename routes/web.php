@@ -32,6 +32,10 @@ Route::get('/categories/{category}/posts', [ClubController::class, 'getClubsByCa
 //event
 Route::resource('events', EventController::class)->middleware('auth');
 
+//Notification
+Route::resource('notification', \App\Http\Controllers\NotificationController::class)->middleware('auth');
+
+
 Route::get('calendars', [CalenderController::class, 'calender'])->name('events.calender')->middleware('auth');
 
 Route::resource('calender', CalenderController::class)->middleware('auth');
@@ -50,7 +54,6 @@ Route::get('logout',[UserController::class,'logout'])->name('logout')->middlewar
 
 
 Route::post('login',LoginController::class)->name('login.store');
-Route::post('logout',[UserController::class,'logout'])->name('logout')->middleware('auth');
 
     //reset-password
     Route::get('reset-email',[ResetPasswordController::class,'emailIndex'])->name('reset-email');

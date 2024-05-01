@@ -12,15 +12,20 @@ return new class extends Migration {
             $table->unsignedBigInteger('club_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('represented_id');
+            $table->unsignedBigInteger('event_category_id');
             $table->foreign('club_id')->references('id')->on('clubs')->onDelete('CASCADE');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('represented_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreign('event_category_id')->references('id')->on('event_categories')->onDelete('CASCADE');
             $table->string('name');
             $table->string('description');
-            $table->string('service');
-            $table->string('location');
+            $table->string('tag');
             $table->timestamp('date_event');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->string('image')->nullable();
+            $table->string('type');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending')->change();
             $table->timestamps();
         });
     }

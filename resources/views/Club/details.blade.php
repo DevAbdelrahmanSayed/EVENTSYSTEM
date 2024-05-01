@@ -37,9 +37,11 @@
                             <h2 class="text-[20px] text-white mb-5 mt-2"><strong>Type: </strong>{{$club->type}}</h2>
                         </div>
                         @if(Auth::user()->type == 'sks' || Auth::user()->type == 'club')
+                            @if(Auth::user()->id === $club->user_id)
                             <svg data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="cursor-pointer absolute top-0 right-0 w-6 h-6 text-[#f5f5f7] hover:text-[#827FFF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                             </svg>
+                        @endif
                         @endif
                     </div>
                     <div class="flex flex-wrap gap-1">
@@ -70,10 +72,12 @@
                                 <span class="text-white">Date: {{ $post->created_at->format('d-m-Y') }}</span>
                                 <p class="mt-3 mb-4 font-light text-white">Description: {{ $post->description }}</p>
                                 @if(Auth::user()->type == 'sks' || Auth::user()->type == 'club')
+                                    @if(Auth::user()->id === $post->user_id)
                                     <!-- Icon in top right corner -->
                                     <svg data-modal-target="crud-modal2" data-modal-toggle="crud-modal2" class="cursor-pointer absolute top-0 right-0 w-6 h-6 text-[#f5f5f7] hover:text-[#827FFF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                                     </svg>
+                                    @endif
                                 @endif
                             </div>
                         </div>
@@ -91,208 +95,331 @@
                     </div>
                     <div id="initialButtonsContainer" class="flex flex-wrap justify-start items-center px-2 py-3 space-x-2 rounded-lg border border-[#424650] bg-[#323741]"></div>
                     @foreach($club->events as $event)
-                    <div class="items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650] hover:border-[#827FFF] relative ">
-                        <a href="#">
-                            <img class="w-[400px] rounded-lg sm:rounded-none sm:rounded-l-lg " src="{{$event->image}}" alt="{{$event->name}}">
-                        </a>
-                        <div class="flex flex-col justify-center flex-grow ml-5">
-]                            <p class="text-sm text-white mb-1"><strong>Event name:</strong> {{$event->name}}</p>
-                            <p class="text-sm text-white mb-1"><strong>Start date:</strong> {{$post->created_at->format('d-m-Y')}}</p>
-                            <p class="text-sm text-white mb-1"><strong>Time:</strong> 15:00 pm</p>
-                            <p class="text-sm text-white mb-1"><strong>speaker:</strong> Melih BULUT</p>
-                            <p class="text-sm text-white mb-1"><strong>Tag:</strong> Networking</p>
-                            <p class="text-sm text-white mb-1"><strong>Location:</strong> Üsküdar Çarşı Campus</p>
-                            <p class="text-sm text-white mb-1"><strong>Event_place:</strong> ÇARŞI 4. Kat Emirnebi 1 Konferans Salonu[304]</p>
-                            <p class="text-sm text-white mb-2"><strong>Description of the event:</strong> Organized by the Technology and Innovation Club, the event on "Health Technologies and Artificial Intelligence</p>
-                            <p class="text-sm text-white mb-2">Gender: Both</p>
-                            <svg data-modal-target="crud-modal3" data-modal-toggle="crud-modal3"class="cursor-pointer absolute top-0 right-0 w-6 h-6 text-[#f5f5f7] hover:text-[#827FFF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                            </svg>
+                        <div class="items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650] hover:border-[#827FFF] relative ">
+                            <a href="#">
+                                <img class="w-[400px] rounded-lg sm:rounded-none sm:rounded-l-lg " src="{{$event->image}}" alt="{{$event->name}}">
+                            </a>
+                            <div class="flex flex-col justify-center flex-grow ml-5">
+                                <p class="text-sm text-white mb-1"><strong>Event name:</strong> {{$event->name??'No Name'}}</p>
+                                <p class="text-sm text-white mb-1"><strong>Start date:</strong> {{$post->date_event??'No Date'}}</p>
+                                <p class="text-sm text-white mb-1"><strong>Time:</strong> 15:00 pm</p>
+                                <p class="text-sm text-white mb-1"><strong>speaker: </strong>{{$event->represented->name??'No speaker'}}</p>
+                                <p class="text-sm text-white mb-1"><strong>Tag:</strong> Networking</p>
+                                <p class="text-sm text-white mb-1"><strong>Location:</strong> Üsküdar Çarşı Campus</p>
+                                <p class="text-sm text-white mb-1"><strong>Event_place:</strong> ÇARŞI 4. Kat Emirnebi 1 Konferans Salonu[304]</p>
+                                <p class="text-sm text-white mb-2"><strong>Description of the event:</strong>{{$event->description??'No description'}}</p>
+                                <p class="text-sm text-white mb-2">Gender: Both</p>
+                                @if(Auth::user()->type == 'sks' || Auth::user()->type == 'club')
+                                    @if(Auth::user()->id === $event->user_id)
+                                        <!-- Icon in top right corner -->
+                                        <svg data-modal-target="crud-modal2" data-modal-toggle="crud-modal2" class="cursor-pointer absolute top-0 right-0 w-6 h-6 text-[#f5f5f7] hover:text-[#827FFF]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
+                                        </svg>
+                                    @endif
+                                @endif
+                            </div>
                         </div>
-                    </div>
                     @endforeach
 
                 </div>
 
             </div>
-            <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                    </li>
-                    <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-                    </li>
-                </ul>
-            </div>
-
             <!-----for Club-->
-            <!-- Main modal -->
-            <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <!-- update club form -->
+            <div id="clubEditForm"  class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative p-4 w-full max-w-md max-h-full">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="relative bg-[#323741] rounded-lg shadow border border-[#424650] ">
                         <!-- Modal header -->
                         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Create New Product
+                            <h3 class="text-lg font-semibold text-white">
+                                Update Club Info
                             </h3>
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                            <button type="button" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35]  hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="clubEditForm">
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                 </svg>
                                 <span class="sr-only">Close modal</span>
                             </button>
                         </div>
+                        <div class="mt-3"></div>
                         <!-- Modal body -->
-                        <form class="p-4 md:p-5">
-                            <div class="grid gap-4 mb-4 grid-cols-2">
-                                <div class="col-span-2">
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
-                                </div>
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
-                                </div>
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                    <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option selected="">Select category</option>
-                                        <option value="TV">TV/Monitors</option>
-                                        <option value="PC">PC</option>
-                                        <option value="GA">Gaming/Console</option>
-                                        <option value="PH">Phones</option>
-                                    </select>
-                                </div>
-                                <div class="col-span-2">
-                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                                    <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Add new product
-                            </button>
+
+                        <form class="max-w-lg mx-auto p-4">
+                            <label class="block mb-2 text-sm font-medium text-white" for="user_avatar">Update Club's logo:</label>
+                            <input class="block w-full text-sm  border border-[#424650] rounded-lg cursor-pointer bg-[#2a2d35] text-[#424650] focus:outline-none  " aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*">
+                            <div class=" text-xs text-[#f5f5f7]" id="user_avatar_help">Clubs logo are useful for establishing your club's visual identity, and leaving a memorable impression on visitors.</div>
                         </form>
+
+                        <div class=" p-4 relative">
+                            <label for="helper-text" class="block mb-2 text-sm font-medium text-[#f5f5f7]">Update Club's Name:</label>
+                            <input type="text" id="post-title" class="bg-[#2a2d35] border border-[#424650] text-gray-200 text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5 dark:placeholder-gray-400" placeholder="Enter the title of your post..">
+                        </div>
+
+                        <div class=" p-4 relative">
+
+
+                            <label for="message" class="block mb-2 text-sm font-medium text-[#f5f5f7] ">Update the description of the Club:</label>
+                            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-[#f5f5f7] bg-[#2a2d35] rounded-lg border border-[#424650]  focus:border-[#827FFF] placeholder-gray-400 " placeholder="Explain the event in more details..." required ></textarea>
+                        </div>
+
+                        <div class=" p-4 relative">
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-white" for="user_avatar">Club's Category:</label>
+                                <label for="Tags" class="sr-only">Update The Category</label>
+                                <select id="Tags" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                    <option selected>Select a Category</option>
+                                    <option value="Academic">Academic</option>
+                                    <option value="Workshop">Workshop</option>
+                                    <option value="Seminar">Seminar</option>
+                                    <option value="Conference">Conference</option>
+                                    <option value="Cultural">Cultural</option>
+                                    <option value="Sports">Sports</option>
+                                    <option value="Networking">Networking</option>
+                                    <option value="Social">Social</option>
+                                    <option value="Arts">Arts</option>
+                                    <option value="Volunteer">Volunteer</option>
+                                    <option value="Career Development">Career Development</option>
+                                    <option value="Special Event">Special Event</option>
+                                    <option value="Online">Online</option>
+                                    <option value="On-campus">On-campus</option>
+                                    <option value="Off-campus">Off-campus</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" data-modal-target="clubUpdateSuccess" data-modal-toggle="clubUpdateSuccess" data-modal-toggle="clubEditForm" class=" mt-4 text-[#f5f5f7] inline-flex items-center bg-[#827FFF]  focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                                Submit
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
             <!-----for post-->
-            <!-- Main modal -->
-            <div id="crud-modal2" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+
+            <!-- update posts form ------>
+            <div id="postEditForm" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative p-4 w-full max-w-md max-h-full">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="relative bg-[#323741] rounded-lg shadow border border-[#424650] ">
                         <!-- Modal header -->
                         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Create New post
+                            <h3 class="text-lg font-semibold text-white">
+                                Update Post Info
                             </h3>
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal2">
+                            <button type="button" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="postEditForm">
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                 </svg>
                                 <span class="sr-only">Close modal</span>
                             </button>
                         </div>
+                        <div class="mt-3"></div>
                         <!-- Modal body -->
-                        <form class="p-4 md:p-5">
-                            <div class="grid gap-4 mb-4 grid-cols-2">
-                                <div class="col-span-2">
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
-                                </div>
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
-                                </div>
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                    <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option selected="">Select category</option>
-                                        <option value="TV">TV/Monitors</option>
-                                        <option value="PC">PC</option>
-                                        <option value="GA">Gaming/Console</option>
-                                        <option value="PH">Phones</option>
-                                    </select>
-                                </div>
-                                <div class="col-span-2">
-                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                                    <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>
-                                </div>
-                            </div>
-                            <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Add new product
-                            </button>
+
+                        <form class="max-w-lg mx-auto p-4">
+                            <label class="block mb-2 text-sm font-medium text-white" for="user_avatar">Update Post's Poster:</label>
+                            <input class="block w-full text-sm  border border-[#424650] rounded-lg cursor-pointer bg-[#2a2d35] text-[#424650] focus:outline-none  " aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*">
+                            <div class=" text-xs text-[#f5f5f7]" id="user_avatar_help">Time to Add Some Visual Flair!</div>
                         </form>
+
+                        <div class=" p-4 relative">
+                            <label for="helper-text" class="block mb-2 text-sm font-medium text-[#f5f5f7]">Update Post's Title:</label>
+                            <input type="text" id="post-title" class="bg-[#2a2d35] border border-[#424650] text-gray-200 text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5 dark:placeholder-gray-400" placeholder="Enter the title of your post..">
+                        </div>
+                        <div class=" p-4 relative">
+                            <label for="message" class="block mb-2 text-sm font-medium text-[#f5f5f7] ">Update the description of the Post:</label>
+                            <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-[#f5f5f7] bg-[#2a2d35] rounded-lg border border-[#424650]  focus:border-[#827FFF] placeholder-gray-400 " placeholder="Explain the Post in more details..."  ></textarea>
+                            <button type="submit" data-modal-toggle="postUpdateSuccess" data-modal-target="postUpdateSuccess" class=" mt-4 p-4 text-[#f5f5f7] inline-flex items-center bg-[#827FFF]  focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                                Submit
+                            </button>
+                        </div>
+
+
                     </div>
                 </div>
             </div>
             <!-----for event-->
-            <!-- Main modal -->
-            <div id="crud-modal3" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-md max-h-full">
+
+            <!-- Update event forms -->
+            <div id="eventEditForm" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-md max-h-full ">
                     <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <div class="relative bg-[#323741] rounded-lg shadow border border-[#424650] ">
                         <!-- Modal header -->
-                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                Create New event
+                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-[#424650]">
+                            <h3 class="text-lg font-semibold text-[#f5f5f7]">
+                                Update Event Info
                             </h3>
-                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal3">
+                            <button type="button" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center " data-modal-toggle="eventEditForm">
                                 <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                                 </svg>
                                 <span class="sr-only">Close modal</span>
                             </button>
                         </div>
-                        <!-- Modal body -->
-                        <form class="p-4 md:p-5">
-                            <div class="grid gap-4 mb-4 grid-cols-2">
-                                <div class="col-span-2">
-                                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                    <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+                        <div class="mt-3">
+                            <!-- Modal body -->
+                            <form class="p-4 relative max-w-lg mx-auto">
+                                <label class=" block mb-2 text-sm font-medium text-white" for="user_avatar">Upload Event's Picture:</label>
+                                <input class="block w-full text-sm  border border-[#424650] rounded-lg cursor-pointer bg-[#2a2d35] text-[#424650] focus:outline-none  " aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*">
+                                <div class="mt-1 text-xs text-[#f5f5f7]" id="user_avatar_help">Upload a photo highlighting details for your event.</div>
+
+                                <div class="mt-4">
+                                    <label for="helper-text" class="block mb-2 text-sm font-medium text-[#f5f5f7] ">Event Name:</label>
+                                    <input type="text" id="event-name-text"  class="bg-[#2a2d35] border border-[#424650]  text-gray-200 text-sm rounded-lg  focus:border-[#827FFF] block w-full p-2.5    dark:placeholder-gray-400 " placeholder="Enter the name of your Event..">
+
                                 </div>
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                    <input type="number" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
+                                <!--------Search for speaker-->
+                                <div class="max-w-sm mt-4">
+                                    <!-- SearchBox -->
+                                    <label class="block mb-2 text-sm font-medium text-[#f5f5f7]">Search for Speaker:</label>
+
+                                    <div class="  w-full " data-hs-combo-box='{
+                                                "groupingType": "default",
+                                                "isOpenOnFocus": true,
+                                                "apiUrl": "../assets/data/searchbox.json",
+                                                "apiGroupField": "category",
+                                                "outputItemTemplate": "<div data-hs-combo-box-output-item><span class=\"flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200 dark:focus:bg-neutral-700\"><div class=\"flex items-center w-full\"><div class=\"flex items-center justify-center rounded-full bg-gray-200 size-6 overflow-hidden me-2.5\"><img class=\"flex-shrink-0\" data-hs-combo-box-output-item-attr=&apos;[{\"valueFrom\": \"image\", \"attr\": \"src\"}, {\"valueFrom\": \"name\", \"attr\": \"alt\"}]&apos; /></div><div data-hs-combo-box-output-item-field=\"name\" data-hs-combo-box-search-text data-hs-combo-box-value></div></div><span class=\"hidden hs-combo-box-selected:block\"><svg class=\"flex-shrink-0 size-3.5 text-blue-600 dark:text-blue-500\" xmlns=\"http:.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg></span></span></div>",
+                                                "groupingTitleTemplate": "<div class=\"text-xs uppercase text-gray-500 m-3 mb-1 dark:text-neutral-500\"></div>"
+                                              }'>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
+                                                <svg class="flex-shrink-0 size-4 text-[#f5f5f7] " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                    <circle cx="11" cy="11" r="8"></circle>
+                                                    <path d="m21 21-4.3-4.3"></path>
+                                                </svg>
+                                            </div>
+                                            <input class="py-3 ps-10 pe-4 block w-full border-[#424650] bg-[#2A2D35] rounded-lg text-sm focus:border-[#827FFF]  disabled:opacity-50 disabled:pointer-events-none " type="text" placeholder="Type a name" value="" data-hs-combo-box-input="">
+                                        </div>
+
+                                        <!-- SearchBox Dropdown -->
+                                        <div class="absolute z-50 w-full  rounded-lg bg-[#2a2d35] border-[#424650]"  data-hs-combo-box-output="">
+                                            <div class="max-h-72 rounded-b-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full  [&::-webkit-scrollbar-track]:bg-[#] [&::-webkit-scrollbar-thumb]:bg-neutral-500" data-hs-combo-box-output-items-wrapper=""></div>
+                                        </div>
+                                        <!-- End SearchBox Dropdown -->
+                                    </div>
+                                    <!-- End SearchBox -->
                                 </div>
-                                <div class="col-span-2 sm:col-span-1">
-                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                    <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option selected="">Select category</option>
-                                        <option value="TV">TV/Monitors</option>
-                                        <option value="PC">PC</option>
-                                        <option value="GA">Gaming/Console</option>
-                                        <option value="PH">Phones</option>
+
+
+                                <div class="mt-4">
+                                    <label for="message" class="block mb-2 text-sm font-medium text-[#f5f5f7] ">Description:</label>
+                                    <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-[#f5f5f7] bg-[#2a2d35] rounded-lg border border-[#424650]  focus:border-[#827FFF] placeholder-gray-400 " placeholder="Explain the event in more details..."  ></textarea>
+                                </div>
+
+                                <div class="mt-4">
+                                    <label class="block mb-2 text-sm font-medium text-white" for="user_avatar">Choose a Location:</label>
+
+                                    <label for="Location" class="sr-only">Select a Location</label>
+                                    <select id="Location" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                        <option selected>Select a Location</option>
+                                        <!-- Locations for the event -->
+                                        <option value="Uskudar_Carsi_Campus">Üsküdar Çarşı Campus</option>
+                                        <option value="Uskudar_Altunizade_Central_Campus">Üsküdar Altunizade Central Campus</option>
+                                        <option value="Uskudar_Altunizade_South_Campus">Üsküdar Altunizade South Campus</option>
+                                        <option value="Faculty_of_Medicine_NP_Campus">Faculty of Medicine NP Campus</option>
+                                        <option value="Faculty_of_Dentistry_NP_Campus">Faculty of Dentistry NP Campus</option>
                                     </select>
                                 </div>
-                                <div class="col-span-2">
-                                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
-                                    <textarea id="description" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here"></textarea>
+
+
+                                <div class="mt-4">
+                                    <label class="block mb-2 text-sm font-medium text-white" for="block">Choose a hall:</label>
+
+                                    <label for="Hall" class="sr-only">Select a Hall</label>
+                                    <select id="Hall" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                        <option selected disabled>Select a Hall</option>
+                                    </select>
                                 </div>
-                            </div>
-                            <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
-                                Add new product
-                            </button>
-                        </form>
+
+
+                                <div class="mt-4">
+                                    <label class="block mb-2 text-sm font-medium text-white" for="user_avatar">Choose a Tag:</label>
+                                    <label for="Tags" class="sr-only">Select a Tag</label>
+                                    <select id="Tags" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                        <option selected>Select a Tag</option>
+                                        <option value="Academic">Academic</option>
+                                        <option value="Workshop">Workshop</option>
+                                        <option value="Seminar">Seminar</option>
+                                        <option value="Conference">Conference</option>
+                                        <option value="Cultural">Cultural</option>
+                                        <option value="Sports">Sports</option>
+                                        <option value="Networking">Networking</option>
+                                        <option value="Social">Social</option>
+                                        <option value="Arts">Arts</option>
+                                        <option value="Volunteer">Volunteer</option>
+                                        <option value="Career Development">Career Development</option>
+                                        <option value="Special Event">Special Event</option>
+                                        <option value="Online">Online</option>
+                                        <option value="On-campus">On-campus</option>
+                                        <option value="Off-campus">Off-campus</option>
+                                    </select>
+                                </div>
+                                <div class="mt-4">
+                                    <label class="block mb-2 text-sm font-medium text-white">Gender:</label>
+
+                                    <label for="Gender" class="sr-only">Select Gender</label>
+                                    <select id="Location" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                        <option selected>Select Gender</option>
+                                        <!--  Gender -->
+                                        <option value="Both">Both</option>
+                                        <option value="Women only">Women only</option>
+                                        <option value="Men only">Men only</option>
+                                    </select>
+                                </div>
+                                <div class="mt-4">
+                                    <label for="Start-Time" class="block mb-2 text-sm font-medium text-[#f5f5f7]">Start Time:</label>
+                                    <div class="relative">
+                                        <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                                            <svg class="w-4 h-4 text-[#f5f5f7]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+                                            </svg>
+                                        </div>
+                                        <!-- Set the default value to "09:00" -->
+                                        <input type="time" id="start-time" class="bg-[#2a2d35] border leading-none border-[#424650] text-[#f5f5f7] text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5" min="09:00" max="18:00" value="09:00" />
+                                    </div>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="relative max-w-sm mt-4">
+
+                                    <label class="block mb-2 text-sm font-medium text-white">Start Date:</label>
+                                    <div class="relative ">
+                                        <div class=" absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                            <svg class=" w-4 h-4 text-gray-500 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                                            </svg>
+                                        </div>
+                                        <input id="datepicker"   datepicker type="text" class="bg-[#2a2d35] border border-[#424650] text-[#f5f5f7] text-sm rounded-lg  focus:border-[#827FFF] block w-full pl-10 p-2.5   " placeholder="Select date" >
+
+                                    </div>
+                                </div>
+                                <div class=" p-4 relative mt-4">
+
+
+                                    <button type="submit" data-modal-target="eventUpdateSuccess" data-modal-toggle="eventUpdateSuccess"  class="  text-[#f5f5f7] inline-flex items-center bg-[#827FFF]  focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                                        Submit
+                                    </button>
+
+
+
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
+        <!------------------------------------------------------------------------------------------------->
+
         <!-- Start grid -->
     </div>
 @endsection
 @section('scripts')
+
+    <!-------------------------Start of scripts----------------------------->
+
     <script>
         const tabs = document.querySelectorAll('[data-tab-target]');
         const activeClass = 'bg-indigo-500';
@@ -368,4 +495,82 @@
 
     </script>
 
+    <!-------------Location with hall classroom script-->
+    <script>
+        // Get references to the dropdowns
+        var locationDropdown = document.getElementById("Location");
+        var blockDropdown = document.getElementById("Hall");
+
+        // Define the options for each block based on the location selection
+        var blockOptions = {
+            "Uskudar_Carsi_Campus": ["Classrom A", "Classrom B", "Classrom C", "Classrom D"],
+            "Uskudar_Altunizade_Central_Campus": ["Classrom X", "Classrom Y", "Classrom Z"],
+            "Uskudar_Altunizade_South_Campus": ["Classrom 1", "Classrom 2", "Classrom 3"],
+            "Faculty_of_Medicine_NP_Campus": ["Classrom Block 1", "Medicine Block 2", "Medicine Block 3"],
+            "Faculty_of_Dentistry_NP_Campus": ["Dentistry Block 1", "Dentistry Block 2", "Dentistry Block 3"]
+        };
+
+        // Function to populate the block dropdown based on the selected location
+        function populateBlockDropdown() {
+            // Clear existing options
+            blockDropdown.innerHTML = '<option selected disabled>Select a Hall</option>';
+
+            // Get the selected location
+            var selectedLocation = locationDropdown.value;
+
+            // Populate options based on the selected location
+            if (blockOptions[selectedLocation]) {
+                blockOptions[selectedLocation].forEach(function(option) {
+                    var newOption = document.createElement("option");
+                    newOption.text = option;
+                    newOption.value = option;
+                    blockDropdown.add(newOption);
+                });
+            }
+        }
+
+        // Event listener to call the populateBlockDropdown function when the location dropdown changes
+        locationDropdown.addEventListener("change", populateBlockDropdown);
+
+        // Populate block dropdown initially
+        populateBlockDropdown();
+    </script>
+    <!--------------------------------------------------------------->
+
+    <!--------Search for speaker script-->
+    <script>
+        // JavaScript to toggle the dropdown
+        const dropdownButton = document.getElementById('dropdown-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const searchInput = document.getElementById('search-input');
+        let isOpen = false; // Set to true to open the dropdown by default
+
+        // Function to toggle the dropdown state
+        function toggleDropdown() {
+            isOpen = !isOpen;
+            dropdownMenu.classList.toggle('hidden', !isOpen);
+        }
+
+        // Set initial state
+        toggleDropdown();
+
+        dropdownButton.addEventListener('click', () => {
+            toggleDropdown();
+        });
+
+        // Add event listener to filter items based on input
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const items = dropdownMenu.querySelectorAll('a');
+
+            items.forEach((item) => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
 @endsection

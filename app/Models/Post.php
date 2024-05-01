@@ -13,12 +13,15 @@ class Post extends Model
         'name',
         'description',
         'image',
-        'club_id'
+        'club_id',
+        'type',
+        'user_id',
+        'status'
     ];
 
     protected function club(): BelongsTo
     {
-        return $this->belongsTo(club::class);
+        return $this->belongsTo(Club::class);
     }
 
     protected function user(): BelongsTo

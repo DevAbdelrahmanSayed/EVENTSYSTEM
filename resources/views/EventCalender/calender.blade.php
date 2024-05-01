@@ -1,7 +1,8 @@
 @extends('layout.app')
+@section('head')
+    <link rel="stylesheet" href="{{asset('assets/css/evo-calendar.css')}}"/>
+@endsection
 @section('content')
-
-
 <div class="bg-[#23242A] antialiased ">
     <section id="demos" class=" p-4 md:ml-64 pt-20 mt-[50px]" >
         <nav class="flex px-2 py-3  border border-[#424650] rounded-lg bg-[#323741]  md-4" aria-label="Breadcrumb">
@@ -20,7 +21,6 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                         </svg>
                         <a href="apps-calendar.html" class="inline-flex items-center text-sm font-medium text-[#F5F5F7] hover:text-[#827FFF] ">
-
                             Weekly Activity
                         </a>
                     </div>

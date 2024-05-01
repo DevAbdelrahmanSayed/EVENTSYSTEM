@@ -46,8 +46,7 @@ class ClubController extends Controller
     public function show(Club $club)
     {
         $club = Club::findOrFail($club->id);
-        $club->with('posts','events')->latest();
-
+        $club->with('posts','events','events.represented')->latest();
         return view('Club.details', compact('club'));
     }
 

@@ -13,7 +13,7 @@
     <title>Document</title>
 </head>
 <body class="bg-[#2A2D35]">
-@include('components.notf')
+@include('layout.notf')
 
 @include('layout.sidebar')
 
@@ -32,7 +32,8 @@
             <img id="image"
                  class="rounded-full w-[200px] h-[200px] ml-[150px] hover:opacity-75 transition-opacity duration-300 ease-in-out"
                  src="{{asset('assets/image/prof.jpg')}}" alt="image description">
-            <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
+            <div
+                class="absolute top-0 left-0 w-full h-full flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 ease-in-out">
                 <button id="editButton"
                         class="bg-black bg-opacity-50 text-white rounded-full p-3 hover:bg-opacity-75 focus:outline-none">
                     Edit
