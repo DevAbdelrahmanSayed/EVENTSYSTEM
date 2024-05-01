@@ -27,11 +27,13 @@
                                                         Description: {{$post->description}}
                                                     </p>
                                                 </div>
+
                                             </div>
                                         </div>
                                     </div>
                                     @endforeach
-                                        <!-- Rejection Modal -->
+
+                                    <!-- Rejection Modal -->
                                     <div id="rejectionModal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeRejectionModal(event)">
                                         <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative" onclick="event.stopPropagation()">
                                             <button onclick="closeRejectionModal(event)" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8"  onmouseover="'" onmouseout="'">
@@ -47,7 +49,7 @@
                                             </div>
                                         </div>
                                     </div><!-- Start coding here -->
-                                    <div class="bg-[#323741] relative sm:rounded-lg   ">
+                                    <div class="bg-[#323741] relative sm:rounded-lg ">
                                         <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                                             <div class="w-full md:w-1/2">
                                                 <form class="flex items-center">
@@ -61,12 +63,12 @@
                                                 </form>
                                             </div>
 {{--                                            filter--}}
-                                            <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                                            <div class="relative z-10 w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                                                 <div class="flex items-center space-x-3 w-full md:w-auto">
-                                                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="text-[#f5f5f7] inline-flex items-center bg-[#827FFF]  focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-2 text-white" viewbox="0 0 20 20" fill="currentColor">
+                                                    <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="text-[#f5f5f7] inline-flex items-center bg-[#827FFF] focus:ring-2 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center" type="button">
                                                             <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd"></path></svg> Filter <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                                             <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"></path></svg></button>
-                                                    <div id="filterDropdown" class="z-10 hidden w-48 p-3 bg-[#2a2d35] rounded-lg shadow ">
+                                                    <div id="filterDropdown" class="absolute z-50 hidden mt-2 w-48 p-3 bg-[#2a2d35] rounded-lg shadow-lg">
                                                         <h6 class="mb-3 text-sm font-medium text-white">
                                                             Filter
                                                         </h6>
@@ -90,7 +92,6 @@
                                                 <thead class="text-xs  uppercase bg-[#2a2d35]  text-white">
                                                 <tr>
 
-
                                                     <th scope="col" class="px-4 py-3 text-left border border-[#424650]">
                                                         Club Manager
                                                     </th>
@@ -111,9 +112,9 @@
                                                     </th>
                                                 </tr>
                                                 </thead>
-                                                @foreach($posts as $post)
                                                 <tbody id="table-body">
-                                                <tr class="border border-[#424650]">
+                                                @foreach($posts as $post)
+                                                    <tr class="border border-[#424650]">
 
                                                     <td class="px-4 py-3 font-medium text-white whitespace-nowrap ">
                                                         {{$post->user->name}}
@@ -122,7 +123,7 @@
                                                         {{$post->club->name}}
                                                     </td>
                                                     <td class="px-4 py-3 text-[#4a90e2] font-bold" >
-                                                        Edit
+                                                        delete
                                                     </td>
                                                     <td class="px-4 py-3">
                                                         <button onclick="openModal()" class="bg-[#827FFF]  text-white font-bold py-1 px-2 rounded">View Post</button>
@@ -141,21 +142,36 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                </tbody>
                                                 @endforeach
+
+                                                </tbody>
                                             </table>
                                         </div>
 
                                     </div>
+
                                 </div>
+
                             </section>
+
                         </article>
+
+
                     </div>
+
                 </div>
+
                 <!--End TABLE 1 -->
             </div>
+
+            <div class="flex justify-center mt-4">
+                {{ $posts->links() }}
+            </div>
+
         </main>
+
     </div>
+
 @endsection
 
 <!----------------------------------------------------->
@@ -194,7 +210,6 @@
         });
     </script>
     <script>
-
         function filterTable() {
             const editChecked = document.getElementById('edit').checked;
             const deleteChecked = document.getElementById('delete').checked;
@@ -204,27 +219,24 @@
             const tableRows = document.querySelectorAll('#table-body tr');
 
             tableRows.forEach(row => {
-                const type = row.cells[2].textContent.trim(); // Ensure this is the correct column index
-                const searchableText = row.textContent.toLowerCase(); // All text content in a row
+                const type = row.cells[2].textContent.trim();
+                const searchableText = row.textContent.toLowerCase();
 
-                // Determine if the current row matches the type filters
                 const typeMatch = (!editChecked && !deleteChecked && !createChecked) ||
                     (editChecked && type === 'Edit') ||
                     (deleteChecked && type === 'Delete') ||
                     (createChecked && type === 'Create');
 
-                // Check if the current row matches the search term
                 const searchMatch = searchTerm === '' || searchableText.includes(searchTerm);
 
-                // Display the row only if it matches the type filters and the search term
                 row.style.display = typeMatch && searchMatch ? '' : 'none';
             });
         }
 
-        // Attach an event listener to the search input for real-time filtering
         document.getElementById('simple-search').addEventListener('input', filterTable);
-
     </script>
+
+
     <script>
 
         function openRejectionModal() {

@@ -28,4 +28,8 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function approvals()
+    {
+        return $this->morphMany(Approval::class, 'content');
+    }
 }

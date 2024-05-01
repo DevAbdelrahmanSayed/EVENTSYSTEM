@@ -233,6 +233,8 @@
 
 </aside>
 @endif
+
+
 @if(Auth::user()->type === 'sks')
 
 <nav class="bg-[#323741] border-b border-[#424650] px-4 py-2.5 fixed left-0 right-0 top-0 z-50">
