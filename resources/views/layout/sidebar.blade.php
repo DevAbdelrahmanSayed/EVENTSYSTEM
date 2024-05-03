@@ -381,15 +381,7 @@
                     </a>
                 </li>
             </ul>
-            <li>
-                <a
-                    href="apps-calendar.html"
-                    class="border-t border-[#424650] flex items-center p-2 text-base font-medium  rounded-lg text-white hover:bg-[#827FFF] "
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-                    <span class="ml-3 text-white">Weekly activity</span>
-                </a>
-            </li>
+
             <li>
                 <a
                     href="#"

@@ -119,7 +119,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="overflow-x-auto mb-5">
+                    <div  class="overflow-x-auto mb-5">
                         <table id="clubTable" class="w-full text-sm text-left text-white " data-rows-per-page="10">
                             <thead class="text-xs text-white uppercase bg-[#2a2d35]  ">
                             <!-------------Column Type----------->
