@@ -1,0 +1,1 @@
+[20-Mar-2024 11:05:50 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.27. in /home/devandwf/glith.devabdelrahm2n.fun/vendor/composer/platform_check.php on line 24
