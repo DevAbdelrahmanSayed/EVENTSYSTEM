@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->boolean('is_verified')->default(0);
             $table->string('name');
             $table->string('description');
-            $table->string('type');
             $table->string('image')->nullable();
             $table->timestamps();
         });

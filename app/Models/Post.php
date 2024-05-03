@@ -15,7 +15,6 @@ Post extends Model
         'description',
         'image',
         'club_id',
-        'type',
         'user_id',
         'status'
     ];

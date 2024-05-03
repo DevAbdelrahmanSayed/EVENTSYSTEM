@@ -18,7 +18,6 @@ class ClubFactory extends Factory
             'represented_id' => \App\Models\User::factory(),
             'name' => $this->faker->company,
             'description' => $this->faker->sentence,
-            'type' => $this->faker->randomElement(['sport', 'music', 'education', 'tech']),
             'image' => $this->faker->imageUrl(640, 480, 'clubs', true)
         ];
     }

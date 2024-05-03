@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Action\UploadFileAction;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\CLubRequest;
 use App\Http\Requests\Admin\PostRequest;
 use App\Models\Club;
 use App\Models\Post;
@@ -11,15 +12,14 @@ use Auth;
 use Exception;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class ClubController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('user')->paginate(10);
-        return view('Dashboard.post', compact('posts'));
+        $clubs= Club::with('user','category','representative')->latest()->paginate(18);
+        return view('Dashboard.club', compact('clubs'));
     }
-
-    public function store(PostRequest $request)
+    public function store(CLubRequest $request)
     {
         $path = null;
 
@@ -30,16 +30,20 @@ class PostController extends Controller
                     ->userId(Auth::id())
                     ->execute();
             }
-            $post = Post::create([
-                'name' => $request->validated('post_name'),
-                'description' => $request->validated('post_des'),
+
+             Club::create([
+                'name' => $request->validated('club_name'),
+                'description' => $request->validated('description'),
                 'image' => $path,
                 'club_id' => $request->validated('club_id'),
+                'category_id' => $request->validated('category_id'),
                 'user_id' => Auth::id(),
+                'represented_id' =>$request->validated('represented_id'),
             ]);
 
 
-            flash('Post created successfully.')->success();
+
+            flash('Club created successfully.')->success();
 
 
         } catch (Exception $e) {
@@ -50,13 +54,4 @@ class PostController extends Controller
         return back();
 
     }
-
-
-    public function show(Post $post)
-    {
-        $post->load('user');
-        return response()->json($post);
-    }
-
-
 }

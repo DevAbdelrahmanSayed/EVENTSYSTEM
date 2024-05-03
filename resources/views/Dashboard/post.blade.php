@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('content')
-    <div class="antialiased bg-[#23242A]">
+    <div class="antialiased bg-[#23242A] ">
         <main class="p-4  md:ml-64 h-auto pt-10 ">
             <div class=" px-3 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-1  ">
                 <!--TABLE 1-->
@@ -190,7 +190,10 @@
                 })
                 .then(post => {
                     const modal = document.getElementById('modal');
-                    modal.querySelector('.modal-image').src = post.image;
+                    modal.querySelector('.modal-image').src = "{{ asset('storage/' . $post->image) }}";
+
+
+
                     modal.querySelector('.modal-title').textContent = post.name;
                     modal.querySelector('.modal-date').textContent = `Date: ${post.created_at}`;
                     modal.querySelector('.modal-description').textContent = `Description: ${post.description}`;

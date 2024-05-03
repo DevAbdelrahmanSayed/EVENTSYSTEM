@@ -14,7 +14,10 @@ class Club extends Model
     protected $fillable = [
         'name',
         'description',
-        'type',
+        'represented_id',
+        'user_id',
+        'category_id',
+        'image'
     ];
 
     public function category(): BelongsTo

@@ -31,8 +31,14 @@ class UploadFileAction
     {
         $filename = $this->generateUniqueFilename($this->file, $this->userId);
         $path = $this->file->storeAs('avatars', $filename, 'public');
-        return Storage::url($path);
+
+        // Remove the '/storage' prefix from the path
+        $pathWithoutStorage = str_replace('/storage', '', $path);
+
+
+        return $pathWithoutStorage;
     }
+
 
     private function generateUniqueFilename(UploadedFile $file, $userId): string
     {
