@@ -361,7 +361,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="EVENTS.html" class="border-t border-[#424650] flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF] ">
+                    <a href="{{route('events.index')}}" class="border-t border-[#424650] flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF] ">
                         <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
@@ -380,13 +380,7 @@
                         <span class="ml-3 text-white">  Posts</span>
                     </a>
                 </li>
-
-
-
-
             </ul>
-
-
             <li>
                 <a
                     href="apps-calendar.html"
@@ -396,13 +390,6 @@
                     <span class="ml-3 text-white">Weekly activity</span>
                 </a>
             </li>
-
-
-
-
-
-
-
             <li>
                 <a
                     href="#"
@@ -424,16 +411,12 @@
                         <span class="ml-3 text-white"> My Profile</span>
                     </a>
                 </li>
-
-
-
-
             </ul>
 
 
             <li>
                 <a
-                    href="#"
+                    href="{{route('logout')}}"
                     class="border-t border-[#424650] flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-[#827FFF]  "
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"><path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9"/></svg>

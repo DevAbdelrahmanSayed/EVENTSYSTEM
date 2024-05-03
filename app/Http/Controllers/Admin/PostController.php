@@ -13,5 +13,10 @@ class PostController extends Controller
         $posts = Post::with('user')->paginate(10);
         return view('Dashboard.post', compact('posts'));
     }
+    public function show(Post $post)
+    {
+        $post->load('user');
+        return response()->json($post);
+    }
 
 }

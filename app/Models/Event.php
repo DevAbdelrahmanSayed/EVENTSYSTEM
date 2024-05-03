@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use App\Models\User;
 class Event extends Model
 {
     use HasFactory;
@@ -19,7 +19,11 @@ class Event extends Model
         'club_id',
         'start_time',
         'end_time',
-        'event_category_id'
+        'user_id',
+        'represented_id',
+        'event_category_id',
+        'place',
+        'location'
     ];
 
 
@@ -29,17 +33,17 @@ class Event extends Model
         'updated_at' => 'datetime',
     ];
 
-    protected function club(): BelongsTo
+    public function club(): BelongsTo
     {
-        return $this->belongsTo(club::class);
+        return $this->belongsTo(Club::class);
     }
 
-    protected function user(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
-    protected function represented(): BelongsTo
+    public function represented(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

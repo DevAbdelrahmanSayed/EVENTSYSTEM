@@ -15,4 +15,6 @@ use App\Http\Controllers\Admin\DashboardController;
 Route::group(['middleware' => 'auth'], function () {
 Route::get('/',[DashboardController::class,'index'])->name('sks.index');
 Route::resource('posts',\App\Http\Controllers\Admin\PostController::class);
+Route::resource('events',\App\Http\Controllers\Admin\EventController::class);
+
 });

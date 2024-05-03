@@ -10,28 +10,26 @@
                             <section class="p-3 sm:p-5 ">
                                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                                     <!-- Post Modal -->
-                                    @foreach($posts as $post)
-                                    <div id="modal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeModal(event)">
-                                        <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative " onclick="event.stopPropagation()">
-                                            <button onclick="closeModal(event)" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8" style="color: white; transition: color 0.3s;" >
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-                                            <div class="flex items-center justify-center ">
-                                                <div class="w-1/2 p-4 text-center">
-                                                    <img src="{{$post->image}}" alt="Bonnie Avatar" class="mx-auto rounded-lg sm:rounded-none sm:rounded-l-lg" style="max-width:100%; height:auto;">
+                                        <div id="modal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeModal(event)">
+                                            <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative" onclick="event.stopPropagation()">
+                                                <button onclick="closeModal(event)" class="modal-close-button absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                                    </svg>
+                                                </button>
+                                                <div class="flex items-center justify-center ">
+                                                    <div class="w-1/2 p-4 text-center">
+                                                        <img class="modal-image mx-auto rounded-lg sm:rounded-none sm:rounded-l-lg" src="" alt="Post Image" style="max-width:100%; height:auto;">
+                                                    </div>
+                                                    <div class="p-5 flex-1">
+                                                        <h3 class="modal-title text-xl font-bold tracking-tight text-white"></h3>
+                                                        <span class="modal-date text-white"></span>
+                                                        <p class="modal-description mt-3 mb-4 font-light text-white"></p>
+                                                        <p class="modal-user text-sm text-white"></p>
+                                                    </div>
                                                 </div>
-                                                <div class="p-5 flex-1">
-                                                    <h3 class="text-xl font-bold tracking-tight text-white">
-                                                       {{$post->name}}
-                                                        <span class="text-white">Date: {{ $post->created_at->format('Y-m-d') }}</span>
-                                                    <p class="mt-3 mb-4 font-light text-white">
-                                                        Description: {{$post->description}}
-                                                    </p>
-                                                </div>
-
                                             </div>
                                         </div>
-                                    </div>
-                                    @endforeach
 
                                     <!-- Rejection Modal -->
                                     <div id="rejectionModal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeRejectionModal(event)">
@@ -91,7 +89,6 @@
                                             <table class="w-full text-sm text-left text-white">
                                                 <thead class="text-xs  uppercase bg-[#2a2d35]  text-white">
                                                 <tr>
-
                                                     <th scope="col" class="px-4 py-3 text-left border border-[#424650]">
                                                         Club Manager
                                                     </th>
@@ -115,7 +112,6 @@
                                                 <tbody id="table-body">
                                                 @foreach($posts as $post)
                                                     <tr class="border border-[#424650]">
-
                                                     <td class="px-4 py-3 font-medium text-white whitespace-nowrap ">
                                                         {{$post->user->name}}
                                                     </td>
@@ -126,7 +122,7 @@
                                                         delete
                                                     </td>
                                                     <td class="px-4 py-3">
-                                                        <button onclick="openModal()" class="bg-[#827FFF]  text-white font-bold py-1 px-2 rounded">View Post</button>
+                                                        <button onclick="openModal({{$post->id}})" class="bg-[#827FFF]  text-white font-bold py-1 px-2 rounded">View Post</button>
                                                     </td>
                                                     <td class="px-4 py-3">
                                                         {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
@@ -147,16 +143,10 @@
                                                 </tbody>
                                             </table>
                                         </div>
-
                                     </div>
-
                                 </div>
-
                             </section>
-
                         </article>
-
-
                     </div>
 
                 </div>
@@ -164,9 +154,7 @@
                 <!--End TABLE 1 -->
             </div>
 
-            <div class="flex justify-center mt-4">
-                {{ $posts->links() }}
-            </div>
+           @include('layout.pagination',['paginationData' => $posts])
 
         </main>
 
@@ -176,128 +164,12 @@
 
 <!----------------------------------------------------->
 @section('scripts')
-    <script>
 
-        // Define variables
-        var currentPage = 1;
-        var totalPages = 100;
-
-        // Function to update current page number
-        function updateCurrentPage() {
-            document.getElementById("currentPage").innerText = currentPage;
-        }
-
-        // Previous page click event
-        document.getElementById("prevPage").addEventListener("click", function(event) {
-            event.preventDefault();
-            if (currentPage > 1) {
-                currentPage--;
-                updateCurrentPage();
-                // Perform actions for navigating to previous page
-                // You can add your logic here, such as loading content for the previous page
-            }
-        });
-
-        // Next page click event
-        document.getElementById("nextPage").addEventListener("click", function(event) {
-            event.preventDefault();
-            if (currentPage < totalPages) {
-                currentPage++;
-                updateCurrentPage();
-                // Perform actions for navigating to next page
-                // You can add your logic here, such as loading content for the next page
-            }
-        });
-    </script>
-    <script>
-        function filterTable() {
-            const editChecked = document.getElementById('edit').checked;
-            const deleteChecked = document.getElementById('delete').checked;
-            const createChecked = document.getElementById('create').checked;
-            const searchTerm = document.getElementById('simple-search').value.toLowerCase();
-
-            const tableRows = document.querySelectorAll('#table-body tr');
-
-            tableRows.forEach(row => {
-                const type = row.cells[2].textContent.trim();
-                const searchableText = row.textContent.toLowerCase();
-
-                const typeMatch = (!editChecked && !deleteChecked && !createChecked) ||
-                    (editChecked && type === 'Edit') ||
-                    (deleteChecked && type === 'Delete') ||
-                    (createChecked && type === 'Create');
-
-                const searchMatch = searchTerm === '' || searchableText.includes(searchTerm);
-
-                row.style.display = typeMatch && searchMatch ? '' : 'none';
-            });
-        }
-
-        document.getElementById('simple-search').addEventListener('input', filterTable);
-    </script>
-
-
-    <script>
-
-        function openRejectionModal() {
-            document.getElementById('rejectionModal').classList.remove('hidden');
-        }
-
-        function closeRejectionModal(event) {
-            if (event) event.stopPropagation();
-            document.getElementById('rejectionModal').classList.add('hidden');
-        }
-
-        function sendRejection() {
-            const reason = document.getElementById('rejectionReason').value;
-            console.log('Rejection reason:', reason);
-            // Implement sending logic here, possibly calling an API
-            closeRejectionModal();
-        }
-    </script>
-    <script>
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const dropdownToggles = document.querySelectorAll('[data-dropdown-toggle]');
-
-            dropdownToggles.forEach(toggle => {
-                toggle.addEventListener('click', function () {
-                    const dropdownId = this.getAttribute('data-dropdown-toggle');
-                    const dropdown = document.getElementById(dropdownId);
-                    dropdown.classList.toggle('hidden');
-                });
-            });
-        });
-    </script>
-    <script>
-
-        function openModal() {
-            document.getElementById('postModal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('postModal').classList.add('hidden');
-        }
-
-        window.onclick = function(event) {
-            var modal = document.getElementById('postModal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
-    </script>
-    <script>
-
-        document.getElementById('simple-search').addEventListener('input', function (e) {
-            const searchValue = e.target.value.toLowerCase();
-            const tableRows = document.querySelectorAll('tbody tr');
-
-            tableRows.forEach(row => {
-                const matchesSearch = row.textContent.toLowerCase().includes(searchValue);
-                row.style.display = matchesSearch ? '' : 'none';
-            });
-        });
-    </script>
+    <script src="{{asset('assets/js/Admin/filter.js')}}"></script>
+    <script src="{{asset('assets/js/Admin/RejectionModal.js')}}"></script>
+    <script src="{{asset('assets/js/Admin/dropdownToggles.js')}}"></script>
+    <script src="{{asset('assets/js/Admin/postModal.js')}}"></script>
+    <script src="{{asset('assets/js/Admin/search.js')}}"></script>
     <script>
         function openModal() {
             document.getElementById('modal').classList.remove('hidden');
@@ -308,98 +180,36 @@
         }
     </script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const rowsPerPage = 10; // Define how many rows per page you want
-            const tableBody = document.getElementById('table-body'); // Get the table body
-            const rows = Array.from(tableBody.querySelectorAll('tr')); // Get all rows in the table body
-            const totalRows = rows.length;
-            let totalPages = Math.ceil(totalRows / rowsPerPage); // Calculate the total number of pages
-            let currentPage = 1; // Start on the first page
-            function updateTable() {
-                // Hide all rows
-                rows.forEach(row => {
-                    row.style.display = 'none';
+        function openModal(postId) {
+            fetch(`/sks/posts/${postId}`)  // Adjust the endpoint to match your routing
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP status ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(post => {
+                    const modal = document.getElementById('modal');
+                    modal.querySelector('.modal-image').src = post.image;
+                    modal.querySelector('.modal-title').textContent = post.name;
+                    modal.querySelector('.modal-date').textContent = `Date: ${post.created_at}`;
+                    modal.querySelector('.modal-description').textContent = `Description: ${post.description}`;
+                    modal.querySelector('.modal-user').textContent = `Posted by: ${post.user ? post.user.name : 'Unknown'}`;
+
+                    // Display the modal
+                    modal.classList.remove('hidden');
+                })
+                .catch(error => {
+                    console.error('Error fetching post details:', error);
+                    alert('Failed to fetch post details: ' + error.message);
                 });
-                // Calculate start index and end index for the current page
-                const start = (currentPage - 1) * rowsPerPage;
-                const end = start + rowsPerPage;
-                // Loop through all rows and display the ones for the current page
-                rows.slice(start, end).forEach(row => {
-                    row.style.display = '';
-                });
-                // Update the current page display and pagination info
-                document.getElementById('currentPage').textContent = currentPage;
-                const paginationInfo = document.querySelector('.text-sm.font-normal');
-                if (paginationInfo) {
-                    paginationInfo.textContent = `Showing ${Math.min(start + 1, totalRows)} to ${Math.min(end, totalRows)} of ${totalRows}`;
-                }
-            }
-
-            // Event listeners for pagination buttons
-            document.getElementById('prevPage').addEventListener('click', function(event) {
-                event.preventDefault();
-                if (currentPage > 1) {
-                    currentPage--;
-                    updateTable();
-                }
-            });
-
-            document.getElementById('nextPage').addEventListener('click', function(event) {
-                event.preventDefault();
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    updateTable();
-                }
-            });
-
-            updateTable(); // Initial call to display the first set of rows
-        });
-
-
-    </script>
-    <script>
-
-        const rowsPerPage = 10;
-        const rows = document.querySelectorAll('tbody tr');
-        const totalRows = rows.length;
-        const totalPages = Math.ceil(totalRows / rowsPerPage);
-        let currentPage = 1;
-
-        function renderPagination() {
-            const paginationContainer = document.querySelector('.inline-flex');
-            paginationContainer.innerHTML = '';  // Clear existing pagination buttons
-
-            for (let i = 1; i <= totalPages; i++) {
-                const pageButton = document.createElement('a');
-                pageButton.href = '#';
-                pageButton.textContent = i;
-                pageButton.className = 'flex items-center justify-center text-sm py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white';
-                if (i === currentPage) {
-                    pageButton.classList.add('text-primary-600', 'bg-primary-50', 'border-primary-300');
-                }
-                pageButton.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    currentPage = i;
-                    showCurrentRows();
-                });
-                paginationContainer.appendChild(pageButton);
-            }
-        }
-        function showCurrentRows() {
-            rows.forEach((row, index) => {
-                const start = (currentPage - 1) * rowsPerPage;
-                const end = currentPage * rowsPerPage;
-                if (index >= start && index < end) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            renderPagination();
-            showCurrentRows();
-        });
+        function closeModal(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('modal').classList.add('hidden');
+        }
     </script>
+
+
 @endsection

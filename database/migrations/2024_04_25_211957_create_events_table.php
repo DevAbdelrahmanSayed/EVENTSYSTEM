@@ -19,13 +19,13 @@ return new class extends Migration {
             $table->foreign('event_category_id')->references('id')->on('event_categories')->onDelete('CASCADE');
             $table->string('name');
             $table->string('description');
-            $table->string('tag');
             $table->timestamp('date_event');
             $table->time('start_time');
             $table->time('end_time');
             $table->string('image')->nullable();
-            $table->string('type');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending')->change();
+            $table->string('place');
+            $table->string('location');
+
             $table->timestamps();
         });
     }

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Club;
 use App\Models\Event;
+use App\Models\EventCategory;
 use App\Models\Post;
 use Illuminate\Database\Seeder;
 
@@ -19,6 +20,9 @@ class DatabaseSeeder extends Seeder
          \App\Models\User::factory(10)->create();
          Category::factory()->count(10)->create();
         Club::factory()->count(10)->create();
+        EventCategory::factory()->count(10)->create();
+        EventCategory::factory()->count(5)->subcategory()->create();
+
         Event::factory()->count(10)->create();
         Post::factory()->count(10)->create();
 

@@ -97,7 +97,6 @@
                 url: "{{ route('login.store') }}",
                 data: $(this).serialize(),
                 success: function (response) {
-                    toastr.success(response.message);
                     window.location.href = response.redirectTo;
                 },
                 error: function (xhr) {
