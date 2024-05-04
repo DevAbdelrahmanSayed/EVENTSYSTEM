@@ -22,7 +22,6 @@ class ClubController extends Controller
     public function store(CLubRequest $request)
     {
         $path = null;
-
         try {
             if ($image = $request->file('image') ){
                 $path = UploadFileAction::make()
@@ -30,22 +29,15 @@ class ClubController extends Controller
                     ->userId(Auth::id())
                     ->execute();
             }
-
-             Club::create([
+            Club::create([
                 'name' => $request->validated('club_name'),
                 'description' => $request->validated('description'),
                 'image' => $path,
-                'club_id' => $request->validated('club_id'),
                 'category_id' => $request->validated('category_id'),
                 'user_id' => Auth::id(),
                 'represented_id' =>$request->validated('represented_id'),
             ]);
-
-
-
             flash('Club created successfully.')->success();
-
-
         } catch (Exception $e) {
             flash('Failed to create post: ' . $e->getMessage())->error();
 

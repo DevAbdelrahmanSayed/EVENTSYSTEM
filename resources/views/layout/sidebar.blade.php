@@ -377,7 +377,7 @@
                         </svg>
 
 
-                        <span class="ml-3 text-white">  Posts</span>
+                        <span class="ml-3 text-white">Posts</span>
                     </a>
                 </li>
             </ul>

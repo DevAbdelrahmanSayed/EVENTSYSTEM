@@ -91,15 +91,15 @@
                                                         {{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}
                                                     </td>
 
-                                                    <td class="px-4 py-3 text-right">
-                                                        <div class="flex justify-end items-center gap-2">
-                                                            <button onclick="openRejectionModal()" class="text-red-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                                                    <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"></path></svg></button> <button class="text-green-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                                                    <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg></button>
-                                                        </div>
-                                                    </td>
+                                                        <td class="px-4 py-3 text-right">
+                                                            <div class="flex justify-end items-center gap-2">
+                                                                <button onclick="openRejectionModal()" class="text-red-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                                                        <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"></path></svg></button> <button class="text-green-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                                                        <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg></button>
+                                                            </div>
+                                                        </td>
                                                 </tr>
                                                 @endforeach
 
@@ -167,8 +167,6 @@
             </div>
 
             @include('layout.pagination',['paginationData' => $posts])
-
-
 
         </main>
 

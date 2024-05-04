@@ -25,7 +25,7 @@ class CLubRequest extends FormRequest
             'represented_id' => 'required|integer|exists:users,id',
             'club_name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }
     protected function failedValidation(Validator $validator)

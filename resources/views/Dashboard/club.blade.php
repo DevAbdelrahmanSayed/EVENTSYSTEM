@@ -2,9 +2,7 @@
 @section('content')
     <div class="antialiased bg-[#23242A]">
 
-
         <!-- Club Table starts here -->
-
         <section class="bg-[#2A2D35] p-4  md:ml-64 h-auto pt-15 mt-20">
             <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
                 <div class="bg-[#323741] relative shadow-md sm:rounded-lg  border border-[#424650]  ">
@@ -607,7 +605,7 @@
                         <!--image input-->
                         <div class=" p-2 relative">
                             <label class="block mb-2 text-sm font-medium text-white" >Add Club's logo:</label>
-                            <input required class=" block w-full text-sm text-[#f5f5f7] border border-[#424650] rounded-lg cursor-pointer bg-[#2a2d35]  focus:outline-none  "  id="addClubLogoImg" type="file" accept="image/*">
+                            <input required name="image" class=" block w-full text-sm text-[#f5f5f7] border border-[#424650] rounded-lg cursor-pointer bg-[#2a2d35]  focus:outline-none  "  id="addClubLogoImg" type="file" accept="image/*">
                             <div class=" text-xs text-[#f5f5f7]" >Clubs logo are useful for establishing your club's visual identity, and leaving a memorable impression on visitors.</div>
                         </div>
                         <!--Club name input -->
@@ -616,11 +614,8 @@
                             <label for="addClubName" class="block mb-2 text-sm font-medium text-[#f5f5f7]">Enter Club's Name:</label>
                             <input name="club_name" type="text" required id="addClubName" class="bg-[#2a2d35] border border-[#424650] text-white text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5 placeholder-white" placeholder="Enter the title of your Club..">
                         </div>
-
                         @csrf
-
                         <!-- Left Section in Form -->
-
                             <!-- Hidden input field for storing the selected user ID -->
                             <input type="hidden" id="selectedRepresentedId" name="represented_id" value="">
 
@@ -915,7 +910,6 @@
                 searchResults.classList.add('hidden');
                 return;
             }
-
             fetch(`/sks/search?name=${encodeURIComponent(query)}`)
                 .then(response => response.json())
                 .then(users => {

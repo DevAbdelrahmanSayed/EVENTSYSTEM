@@ -10,6 +10,7 @@
 |
 */
 
+use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\SearchController;
 
@@ -19,5 +20,7 @@ Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::resource('admin/clubs',\App\Http\Controllers\Admin\ClubController::class);
 Route::resource('posts',\App\Http\Controllers\Admin\PostController::class);
 Route::resource('events',\App\Http\Controllers\Admin\EventController::class);
+Route::post('approve',[AdminController::class,'approve'])->name('sks.approve');
+Route::post('rejection',[AdminController::class,'rejection'])->name('sks.approve');
 
 });

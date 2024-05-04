@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Approval extends Model
 {
 
-    protected $fillable = ['content_type', 'content_id', 'user_id', 'action_type', 'is_approved', 'admin_id'];
+    protected $fillable = ['content_type', 'content_id', 'user_id', 'action_type', 'is_approved', 'admin_id','reason'];
 
 
     public function content()

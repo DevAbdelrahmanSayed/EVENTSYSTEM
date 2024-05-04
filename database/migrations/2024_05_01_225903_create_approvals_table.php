@@ -13,6 +13,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('action_type'); // 'create', 'update', 'delete'
             $table->boolean('is_approved')->default(false);
+            $table->string('reason')->nullable();
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('admin_id')->references('id')->on('users');
