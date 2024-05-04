@@ -625,7 +625,7 @@
                             <input type="hidden" id="selectedRepresentedId" name="represented_id" value="">
 
                             <!-- Search for speaker field -->
-                            <div class="mt-4">
+                            <div class="p-2 relative">
                                 <label class="block mb-2 text-sm font-medium text-[#f5f5f7]" for="searchInput">Search for Club Manager:</label>
                                 <div class="relative w-full">
                                     <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
@@ -921,14 +921,14 @@
                 .then(users => {
                     if (users.length) {
                         searchResults.innerHTML = users.map(user =>
-                            `<div class="p-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-800 dark:text-neutral-200"
+                            `<div class="p-2 hover:bg-[#827FFF]  cursor-pointer text-sm text-[#f5f5f7] "
                             onclick="selectSpeaker('${user.id}', '${user.name}')">
                             ${user.name}
                         </div>`
                         ).join('');
                         searchResults.classList.remove('hidden');
                     } else {
-                        searchResults.innerHTML = '<div class="p-2 text-sm text-gray-500">No results found</div>';
+                        searchResults.innerHTML = '<div class="p-2 text-sm text-[#f5f5f7] hover:bg-[#827FFF]">No results found</div>';
                         searchResults.classList.remove('hidden');
                     }
                 });

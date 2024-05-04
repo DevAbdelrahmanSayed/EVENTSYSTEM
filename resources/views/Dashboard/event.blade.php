@@ -1,81 +1,21 @@
 @extends('layout.app')
 @section('content')
     <div class="antialiased bg-[#23242A]">
+
         <main class="p-4  md:ml-64 h-auto pt-20">
+
             <div class=" px-3 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md-1  ">
                 <!--TABLE 1-->
                 <div class="col-span-4">
-                    <div class="p-4 overflow-hidden   transform transition duration-500 hover:scale-10 ">
+                    <div class="p-4    transform transition duration-500 hover:scale-10 ">
                         <article>
                             <section class="p-3 sm:p-5 ">
                                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-                                    <!-- Post Modal -->
-                                    <div id="modal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeModal(event)">
-                                        <div class="modal-content bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative" onclick="event.stopPropagation()">
-                                            <button onclick="closeModal(event)" class="modal-close-button absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                                                </svg>
-                                            </button>
-                                            <div class="modal-body items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650]">
-                                                <a href="#">
-                                                    <img class="modal-image w-[400px] rounded-lg sm:rounded-none sm:rounded-l-lg" src="assets/js/pages/css/image/prof.jpg" alt="Event Image">
-                                                </a>
-                                                <div class="modal-details flex flex-col justify-center flex-grow ml-5">
-                                                    <h3 class="modal-title text-xl font-bold text-white mb-2">Brain Awareness Week Webinar</h3>
-                                                    <p class="modal-event-name text-sm text-white mb-1"><strong>event_name:</strong> Health Technologies and Artificial Intelligence</p>
-                                                    <p class="modal-date text-sm text-white mb-1"><strong>Start date:</strong> 30 April 2024</p>
-                                                    <p class="modal-time text-sm text-white mb-1"><strong>Time:</strong> 15:00 pm</p>
-                                                    <p class="modal-speaker text-sm text-white mb-1"><strong>speaker:</strong> Melih BULUT</p>
-                                                    <p class="modal-tags text-sm text-white mb-1"><strong>Tag:</strong> Networking</p>
-                                                    <p class="modal-location text-sm text-white mb-1"><strong>Location:</strong> Üsküdar Çarşı Campus</p>
-                                                    <p class="modal-event-place text-sm text-white mb-1"><strong>Event_place:</strong> ÇARŞI 4. Kat Emirnebi 1 Konferans Salonu[304]</p>
-                                                    <p class="modal-description text-sm text-white mb-2"><strong>Description of the event:</strong> Organized by the Technology and Innovation Club, the event on "Health Technologies and Artificial Intelligence</p>
-                                                    <p class="modal-gender text-sm text-white mb-2">Gender: Both</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
 
+                                    <!-- Start coding here -->
 
-                                    <!-- Rejection Modal -->
-                                    <div id="rejectionModal"
-                                         class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50"
-                                         onclick="closeRejectionModal(event)">
-                                        <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative"
-                                             onclick="event.stopPropagation()">
-                                            <button onclick="closeRejectionModal(event)"
-                                                    class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24"
-                                                     stroke-width="2" stroke="currentColor" class="w-8 h-8"
-                                                     onmouseover="'" onmouseout="'">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                          d="M6 18L18 6M6 6l12 12"></path>
-                                                </svg>
-                                            </button>
-                                            <div class="flex flex-col items-center justify-center p-5 w-full">
-                                                <h3 class="text-xl font-bold tracking-tight text-white mb-3">
-                                                    Reason for Rejection
-                                                </h3>
-                                                <textarea id="rejectionReason"
-                                                          class="p-2 w-full h-32 text-white bg-[#23242A] border border-[#424650] focus:border-[#827FFF] placeholder-white  rounded mb-4"
-                                                          placeholder="Write the reason for rejection here..."></textarea>
-                                                <div class="flex space-x-3">
-                                                    <button onclick="sendRejection()"
-                                                            class="bg-[#827FFF]  text-white font-bold py-2 px-4 rounded">
-                                                        Send
-                                                    </button>
-                                                    <button onclick="closeRejectionModal()"
-                                                            class="bg-red-600 text-white font-bold py-2 px-4 rounded">
-                                                        Cancel
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- Start coding here -->
                                     <div class="bg-[#323741] relative sm:rounded-lg ">
-                                        <div
-                                            class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
+                                        <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
 
                                             <div class="w-full md:w-1/2">
                                                 <form class="flex items-center">
@@ -235,21 +175,86 @@
                         </article>
                     </div>
                 </div>
+
                 <!--End TABLE 1 -->
             </div>
-            <!--TABLE 2 -->
-            <!--END TABLE-->
+
+            @include('layout.pagination',['paginationData' => $events])
+
+
+
+
+
+
+
+
+
+
+            <!-------------------------------------->
+
+       <!--post modal -->
+            <div id="modal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeModal(event)">
+                <div class="modal-content bg-[#323741] rounded-lg shadow-xl overflow-hidden w-3/5 sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/3 relative" onclick="event.stopPropagation()">
+                    <button onclick="closeModal(event)" class="modal-close-button absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <div class="modal-body flex flex-col justify-center items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650]">
+                        <div class="w-full p-2 sm:p-4 text-left">
+                            <img class="modal-image mx-auto rounded-lg sm:rounded-none sm:rounded-t-lg" src="assets/js/pages/css/image/prof.jpg" alt="Event Image">
+                        </div>
+                        <div class="modal-details w-full p-2 sm:p-4 text-left">
+                            <h3 class="modal-title text-xl font-bold text-white mb-2">Brain Awareness Week Webinar</h3>
+                            <p class="modal-event-name text-sm text-white mb-1"><strong>event_name:</strong> Health Technologies and Artificial Intelligence</p>
+                            <p class="modal-date text-sm text-white mb-1"><strong>Start date:</strong> 30 April 2024</p>
+                            <p class="modal-time text-sm text-white mb-1"><strong>Time:</strong> 15:00 pm</p>
+                            <p class="modal-speaker text-sm text-white mb-1"><strong>speaker:</strong> Melih BULUT</p>
+                            <p class="modal-tags text-sm text-white mb-1"><strong>Tag:</strong> Networking</p>
+                            <p class="modal-location text-sm text-white mb-1"><strong>Location:</strong> Üsküdar Çarşı Campus</p>
+                            <p class="modal-event-place text-sm text-white mb-1"><strong>Event_place:</strong> ÇARŞI 4. Kat Emirnebi 1 Konferans Salonu[304]</p>
+                            <div class="modal-description text-sm text-white mb-2">
+                                <strong>Description of the event:</strong>
+                                <p>Organized by the Technology and Innovation Club, the event on "Health Technologies and Artificial Intelligence" aims to explore the latest advancements in health technologies and their application in artificial intelligence.</p>
+                            </div>
+                            <p class="modal-gender text-sm text-white mb-2">Gender: Both</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Rejection Modal -->
+            <div id="rejectionModal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeRejectionModal(event)">
+                <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-3/5 sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/3 relative" onclick="event.stopPropagation()">
+                    <button onclick="closeRejectionModal(event)" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <div class="flex flex-col items-center justify-center p-5 w-full">
+                        <h3 class="text-xl font-bold tracking-tight text-white mb-3">
+                            Reason for Rejection
+                        </h3>
+                        <textarea id="rejectionReason" class="p-2 w-full h-32 text-white bg-[#23242A] border border-[#424650] focus:border-[#827FFF] placeholder-white rounded mb-4" placeholder="Write the reason for rejection here..."></textarea>
+                        <div class="flex space-x-3">
+                            <button onclick="sendRejection()" class="bg-[#827FFF] text-white font-bold py-2 px-4 rounded">
+                                Send
+                            </button>
+                            <button onclick="closeRejectionModal()" class="bg-red-600 text-white font-bold py-2 px-4 rounded">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <!-- Catogray modal -->
-            <div id="Category-modal" tabindex="-1" aria-hidden="true"
-                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div id="Category-modal" tabindex="-1" aria-hidden="true" class="bg-[#23242A] bg-opacity-80 hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                 <div class="relative p-4 w-full max-w-md max-h-full">
                     <!-- Modal content -->
                     <div class="relative bg-[#323741] rounded-lg shadow border border-[#424650]">
                         <!-- Modal header -->
-                        <div
-                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                             <h3 class="text-xl font-semibold text-white">
-                                Create Catogray
+                                Create Category
                             </h3>
                             <button type="button"
                                     class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
@@ -267,69 +272,28 @@
                             <form class="space-y-4" action="#">
                                 <div>
                                     <label for="text" class="block mb-2 text-sm font-medium text-white">Name of
-                                        Catogray</label>
-                                    <input type="text" name="user name" id="user name"
-                                           class="bg-[#2a2d35] border border-[#424650] text-white text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5 placeholder-white"
-                                           placeholder="Enter your Catogray" required/>
+                                        Category </label>
+                                    <input type="text" name="user name" id="user name" class="bg-[#2a2d35] border border-[#424650] text-white text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5 placeholder-white" placeholder="Enter your Category:" required/>
                                 </div>
 
                                 <div class="mt-8 flex items-center justify-end ">
 
-                                    <button type="button" data-modal-target="Tag-modal" data-modal-toggle="Tag-modal"
-                                            data-modal-hide="Category-modal"
-                                            class=" mt-4 text-[#f5f5f7] inline-flex items-center bg-[#827FFF]  focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                                        Next
+                                    <button type="button" data-modal-target="Tag-modal" data-modal-toggle="Tag-modal" class=" mt-4 text-[#f5f5f7] inline-flex items-center bg-[#827FFF]  focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
+                                        Save
                                     </button>
                                 </div>
 
                             </form>
                         </div>
-                    </div>
+
+
+
                 </div>
             </div>
             <!------>
-            <div id="Tag-modal" tabindex="-1" aria-hidden="true"
-                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-[#323741] rounded-lg shadow border border-[#424650]">
-                        <!-- Modal header -->
-                        <div
-                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-xl font-semibold text-white">
-                                Create Tag
-                            </h3>
-                            <button type="button"
-                                    class=" text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                    data-modal-hide="Tag-modal">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                     viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                          stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                </svg>
-                                <span class="sr-only">Close modal</span>
-                            </button>
-                        </div>
-                        <!-- Modal body -->
-                        <div class="p-4 md:p-5">
-                            <form class="space-y-4" action="#" id="form">
-                                <label class="block mb-2 text-sm font-medium text-white">name of tag</label>
-                                <input type="text" id="tag-input1" placeholder="Enter Name of tag">
-                                <div class="mt-8 flex items-center justify-end ">
-                                    <button type="submit"
-                                            class=" mt-4 text-[#f5f5f7] inline-flex items-center bg-[#827FFF]  focus:ring-2 focus:outline-none  font-medium rounded-lg text-sm px-5 py-2.5 text-center ">
-                                        Save
-                                    </button>
 
 
-                                </div>
-
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
-            @include('layout.pagination',['paginationData' => $events])
 
         </main>
     </div>

@@ -5,48 +5,11 @@
             <div class=" px-3 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-1  ">
                 <!--TABLE 1-->
                 <div class="col-span-4">
-                    <div class="p-4 overflow-hidden   transform transition duration-500 hover:scale-10 ">
+                    <div class="p-4   transform transition duration-500 hover:scale-10 ">
                         <article>
                             <section class="p-3 sm:p-5 ">
                                 <div class="mx-auto max-w-screen-xl px-4 lg:px-12">
-                                    <!-- Post Modal -->
-                                        <div id="modal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeModal(event)">
-                                            <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative" onclick="event.stopPropagation()">
-                                                <button onclick="closeModal(event)" class="modal-close-button absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                                                    </svg>
-                                                </button>
-                                                <div class="flex items-center justify-center ">
-                                                    <div class="w-1/2 p-4 text-center">
-                                                        <img class="modal-image mx-auto rounded-lg sm:rounded-none sm:rounded-l-lg" src="" alt="Post Image" style="max-width:100%; height:auto;">
-                                                    </div>
-                                                    <div class="p-5 flex-1">
-                                                        <h3 class="modal-title text-xl font-bold tracking-tight text-white"></h3>
-                                                        <span class="modal-date text-white"></span>
-                                                        <p class="modal-description mt-3 mb-4 font-light text-white"></p>
-                                                        <p class="modal-user text-sm text-white"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
 
-                                    <!-- Rejection Modal -->
-                                    <div id="rejectionModal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeRejectionModal(event)">
-                                        <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative" onclick="event.stopPropagation()">
-                                            <button onclick="closeRejectionModal(event)" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" ><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8"  onmouseover="'" onmouseout="'">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg></button>
-                                            <div class="flex flex-col items-center justify-center p-5 w-full">
-                                                <h3 class="text-xl font-bold tracking-tight text-white mb-3">
-                                                    Reason for Rejection
-                                                </h3>
-                                                <textarea id="rejectionReason" class="p-2 w-full h-32 text-white bg-[#23242A] border border-[#424650] focus:border-[#827FFF] placeholder-white  rounded mb-4" placeholder="Write the reason for rejection here..."></textarea>
-                                                <div class="flex space-x-3">
-                                                    <button onclick="sendRejection()" class="bg-[#827FFF]  text-white font-bold py-2 px-4 rounded">Send</button> <button onclick="closeRejectionModal()" class="bg-red-600 text-white font-bold py-2 px-4 rounded">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div><!-- Start coding here -->
                                     <div class="bg-[#323741] relative sm:rounded-lg ">
                                         <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                                             <div class="w-full md:w-1/2">
@@ -154,7 +117,58 @@
                 <!--End TABLE 1 -->
             </div>
 
-           @include('layout.pagination',['paginationData' => $posts])
+            <!-- Post Modal -->
+            <!-- Modal -->
+            <div id="modal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeModal(event)">
+                <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-1/2 relative" onclick="event.stopPropagation()">
+                    <button onclick="closeModal(event)" class="modal-close-button absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <div class="flex items-center justify-center">
+                        <div class="w-full p-4 text-center">
+                            <img class="modal-image mx-auto rounded-lg sm:rounded-none sm:rounded-t-lg" src="" alt="Post Image" style="max-width:100%; height:auto;">
+                            <div class="mt-4 text-left">
+                                <h3 class="modal-title text-xl font-bold tracking-tight text-white"></h3>
+                                <span class="modal-date text-white"></span>
+                                <p class="modal-description mt-3 mb-4 font-light text-white whitespace-normal break-words"></p>
+                                <p class="modal-user text-sm text-white"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rejection Modal -->
+            <!-- Rejection Modal -->
+            <div id="rejectionModal" class="hidden fixed inset-0 bg-[#23242A] bg-opacity-75 flex items-center justify-center z-50" onclick="closeRejectionModal(event)">
+                <div class="bg-[#323741] rounded-lg shadow-xl overflow-hidden w-3/5 sm:w-2/3 md:w-1/2 lg:w-2/5 xl:w-1/3 relative" onclick="event.stopPropagation()">
+                    <button onclick="closeRejectionModal(event)" class="absolute top-2.5 right-2.5 text-[#f5f5f7] border border-[#424650] bg-[#2a2d35] rounded-lg hover:bg-[#827FFF] focus:ring-2 focus:outline-none focus:ring-[#827FFF] rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-8 h-8">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                    <div class="flex flex-col items-center justify-center p-5 w-full">
+                        <h3 class="text-xl font-bold tracking-tight text-white mb-3">
+                            Reason for Rejection
+                        </h3>
+                        <textarea id="rejectionReason" class="p-2 w-full h-48 text-white bg-[#23242A] border border-[#424650] focus:border-[#827FFF] placeholder-white rounded mb-4" placeholder="Write the reason for rejection here..."></textarea>
+                        <div class="flex space-x-3">
+                            <button onclick="sendRejection()" class="bg-[#827FFF] text-white font-bold py-2 px-4 rounded">
+                                Send
+                            </button>
+                            <button onclick="closeRejectionModal()" class="bg-red-600 text-white font-bold py-2 px-4 rounded">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @include('layout.pagination',['paginationData' => $posts])
+
+
 
         </main>
 
