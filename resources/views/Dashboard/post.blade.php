@@ -1,5 +1,7 @@
 @extends('layout.app')
 @section('content')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.css">
+
     <div class="antialiased bg-[#23242A] ">
         <main class="p-4  md:ml-64 h-auto pt-10 ">
             <div class=" px-3 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-1  ">
@@ -93,11 +95,15 @@
 
                                                         <td class="px-4 py-3 text-right">
                                                             <div class="flex justify-end items-center gap-2">
-                                                                <button onclick="openRejectionModal()" class="text-red-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                                                    <button  onclick="openRejectionModal({{$post->id}}, 'delete')" class="text-red-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                                                            <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"></path></svg>
+                                                                    </button>
+                                                                <button onclick="approve({{$post->id}}, 'delete')" class="text-green-500 focus:outline-none">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                                                         <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"></path></svg></button> <button class="text-green-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                                                        <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg></button>
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg>
+                                                                </button>
                                                             </div>
                                                         </td>
                                                 </tr>
@@ -166,6 +172,7 @@
                 </div>
             </div>
 
+
             @include('layout.pagination',['paginationData' => $posts])
 
         </main>
@@ -176,9 +183,10 @@
 
 <!----------------------------------------------------->
 @section('scripts')
-
+    <script src="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.js"></script>
     <script src="{{asset('assets/js/Admin/filter.js')}}"></script>
     <script src="{{asset('assets/js/Admin/RejectionModal.js')}}"></script>
+    <script src="{{asset('assets/js/Admin/approveModel.js')}}"></script>
     <script src="{{asset('assets/js/Admin/dropdownToggles.js')}}"></script>
     <script src="{{asset('assets/js/Admin/postModal.js')}}"></script>
     <script src="{{asset('assets/js/Admin/search.js')}}"></script>
@@ -225,6 +233,8 @@
             document.getElementById('modal').classList.add('hidden');
         }
     </script>
+
+
 
 
 @endsection

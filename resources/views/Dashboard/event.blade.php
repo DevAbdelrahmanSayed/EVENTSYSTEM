@@ -1,5 +1,6 @@
 @extends('layout.app')
 @section('content')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.css">
     <div class="antialiased bg-[#23242A]">
 
         <main class="p-4  md:ml-64 h-auto pt-20">
@@ -156,11 +157,15 @@
 
                                                         <td class="px-4 py-3 text-right">
                                                             <div class="flex justify-end items-center gap-2">
-                                                                    <button onclick="openRejectionModal()" class="text-red-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                                                <button  onclick="openRejectionModal({{$event->id}}, 'delete')" class="text-red-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                                                         <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"></path></svg></button> <button class="text-green-500 focus:outline-none"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 9l-6 6m0-6l6 6"></path></svg>
+                                                                </button>
+                                                                <button onclick="approve({{$event->id}}, 'update')" class="text-green-500 focus:outline-none">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                                                         <rect width="18" height="18" x="3" y="3" fill="none" stroke="currentColor"></rect>
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg></button>
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4"></path></svg>
+                                                                </button>
                                                             </div>
                                                         </td>
                                                 </tr>
@@ -182,14 +187,6 @@
             @include('layout.pagination',['paginationData' => $events])
 
 
-
-
-
-
-
-
-
-
             <!-------------------------------------->
 
        <!--post modal -->
@@ -208,7 +205,7 @@
                             <h3 class="modal-title text-xl font-bold text-white mb-2">Brain Awareness Week Webinar</h3>
                             <p class="modal-event-name text-sm text-white mb-1"><strong>event_name:</strong> Health Technologies and Artificial Intelligence</p>
                             <p class="modal-date text-sm text-white mb-1"><strong>Start date:</strong> 30 April 2024</p>
-                            <p class="modal-time text-sm text-white mb-1"><strong>Time:</strong> 15:00 pm</p>
+                            <p class="modal-time text-sm text-white mb-1"><strong>Time:</strong>     15:00 pm</p>
                             <p class="modal-speaker text-sm text-white mb-1"><strong>speaker:</strong> Melih BULUT</p>
                             <p class="modal-tags text-sm text-white mb-1"><strong>Tag:</strong> Networking</p>
                             <p class="modal-location text-sm text-white mb-1"><strong>Location:</strong> Üsküdar Çarşı Campus</p>
@@ -234,7 +231,7 @@
                         <h3 class="text-xl font-bold tracking-tight text-white mb-3">
                             Reason for Rejection
                         </h3>
-                        <textarea id="rejectionReason" class="p-2 w-full h-32 text-white bg-[#23242A] border border-[#424650] focus:border-[#827FFF] placeholder-white rounded mb-4" placeholder="Write the reason for rejection here..."></textarea>
+                        <textarea id="rejectionReason" class="p-2 w-full h-48 text-white bg-[#23242A] border border-[#424650] focus:border-[#827FFF] placeholder-white rounded mb-4" placeholder="Write the reason for rejection here..."></textarea>
                         <div class="flex space-x-3">
                             <button onclick="sendRejection()" class="bg-[#827FFF] text-white font-bold py-2 px-4 rounded">
                                 Send
@@ -301,7 +298,10 @@
 
 <!----------------------------------------------------->
 @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/toastr/build/toastr.min.js"></script>
+
     <script src="{{asset('assets/js/Admin/filter.js')}}"></script>
+    <script src="{{asset('assets/js/Admin/approveModel.js')}}"></script>
     <script src="{{asset('assets/js/Admin/RejectionModal.js')}}"></script>
     <script src="{{asset('assets/js/Admin/dropdownToggles.js')}}"></script>
     <script src="{{asset('assets/js/Admin/postModal.js')}}"></script>
