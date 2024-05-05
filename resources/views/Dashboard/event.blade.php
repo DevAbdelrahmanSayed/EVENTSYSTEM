@@ -199,9 +199,10 @@
                     </button>
                     <div class="modal-body flex flex-col justify-center items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650]">
                         <div class="w-full p-2 sm:p-4 text-left">
-                            <img class="modal-image mx-auto rounded-lg sm:rounded-none sm:rounded-t-lg" src="assets/js/pages/css/image/prof.jpg" alt="Event Image">
+                            <img class="modal-image mx-auto rounded-lg sm:rounded-none sm:rounded-t-lg" src="" alt="Event Image">
                         </div>
                         <div class="modal-details w-full p-2 sm:p-4 text-left">
+                            <h3 class="modal-club text-xl font-bold text-white mb-2"><strong>event_name:</strong> Brain Awareness Week Webinar</h3>
                             <h3 class="modal-title text-xl font-bold text-white mb-2">Brain Awareness Week Webinar</h3>
                             <p class="modal-event-name text-sm text-white mb-1"><strong>event_name:</strong> Health Technologies and Artificial Intelligence</p>
                             <p class="modal-date text-sm text-white mb-1"><strong>Start date:</strong> 30 April 2024</p>
@@ -318,7 +319,8 @@
     <script>
         // Function to open the modal and load event data dynamically
         function openModal(eventId) {
-            fetch(`/sks/events/${eventId}`)  // Adjust this endpoint as needed
+            // Fetch event details using the event ID
+            fetch(`/sks/admin/events/${eventId}`) // Make sure this endpoint is set to fetch an individual event
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP status ${response.status}`);
@@ -326,36 +328,26 @@
                     return response.json();
                 })
                 .then(event => {
-                    console.log(event);
+                    // Get the modal element
                     const modal = document.getElementById('modal');
-                    modal.querySelector('.modal-image').src = event.image || 'path/to/default-image.jpg'; // Provide a default image path as fallback
-                    modal.querySelector('.modal-title').textContent = event.club.name;
-                    modal.querySelector('.modal-event-name').textContent = "Name: " + event.name;
-                    modal.querySelector('.modal-date').textContent = "Date: " + event.date_event;
-                    modal.querySelector('.modal-time').textContent = "Time: " + event.start_time;
+
+                    // Update modal with event data
+                    modal.querySelector('.modal-image').src = "{{ asset('storage') }}/" + event.image;
+                    modal.querySelector('.modal-title').textContent ="Event Name: " + event.name;
+                    modal.querySelector('.modal-description').textContent ="description: " + event.description;
+                    modal.querySelector('.modal-date').textContent = "Date: " + (event.date_event || 'Not specified');
+                    modal.querySelector('.modal-time').textContent = "Time: " + (event.start_time + ' to ' + event.end_time || 'Not specified');
+
+                    // Handling the speaker and club name
                     modal.querySelector('.modal-speaker').textContent = "Speaker: " + (event.represented ? event.represented.name : 'TBA');
-                    modal.querySelector('.modal-location').textContent = "Location: " + event.location;
-                    modal.querySelector('.modal-event-place').textContent = "Place: " + event.place;
-                    modal.querySelector('.modal-description').textContent = "Description: " + event.description;
+                    modal.querySelector('.modal-club').textContent = "Club: " + (event.club ? event.club.name : 'No Club');
+                    modal.querySelector('.modal-tags').textContent ="Tag: " + (event.tag ? event.tag.name : 'No Tag');
+                    // Category and Location (as Sub-category)
+                    const categoryDisplay = modal.querySelector('.modal-location');
+                    categoryDisplay.textContent = "Location: " + (event.category ? event.category.name : "No Category");
 
-                    // Handle categories and sub-categories
-                    const tagsContainer = modal.querySelector('.modal-tags');
-                    tagsContainer.innerHTML = '';  // Clear previous content
-                    if (event.category) {
-                        let mainTag = document.createElement('p');
-                        mainTag.className = 'text-sm text-white mb-1';
-                        mainTag.textContent = "Main Category: " + event.category.name;
-                        tagsContainer.appendChild(mainTag);
-
-                        event.category.children.forEach(subCategory => {
-                            let subTag = document.createElement('p');
-                            subTag.className = 'text-sm text-white mb-1';
-                            subTag.textContent = "Sub-category: " + subCategory.name;
-                            tagsContainer.appendChild(subTag);
-                        });
-                    }
-
-                    // Display the modal
+                    const childCategoryDisplay = modal.querySelector('.modal-event-place');
+                    childCategoryDisplay.textContent = "Hall: " + (event.child_category ? event.child_category.name : "No Sub-Category");
                     modal.classList.remove('hidden');
                 })
                 .catch(error => {
@@ -370,6 +362,7 @@
             document.getElementById('modal').classList.add('hidden');
         }
     </script>
+
 
 
 @endsection

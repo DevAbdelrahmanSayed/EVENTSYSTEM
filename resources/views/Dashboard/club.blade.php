@@ -1,4 +1,8 @@
 @extends('layout.app')
+@section('head')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+@endsection
 @section('content')
     <div class="antialiased bg-[#23242A]">
 
@@ -140,7 +144,7 @@
 
                             <tbody>
                             @foreach($clubs as $club)
-                            <tr class="border-b border-gray-700">
+                            <tr class="border-b border-gray-700" data-club-id="{{ $club->id }}">
 
                                 <td class="px-4 py-3"></td>
                                 <td class="px-4 py-3">{{$club->name}}</td>
@@ -152,10 +156,10 @@
                                         <button id="editClubBtn" data-modal-target="clubEditForm" data-modal-toggle="clubEditForm"   class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-2 rounded text-xs h-6">
                                             EditClub
                                         </button>
-                                        <button id="deleteClubBtn" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded text-xs h-6">
+                                        <button class="deleteClubBtn bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded text-xs h-6">
                                             DeleteClub
                                         </button>
-                                        <button id="addEventBtn" data-modal-target="eventEditForm" data-modal-toggle="eventEditForm" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs h-6">
+                                        <button id="addEventBtn" data-modal-target="eventEditForm" data-club-id="{{$club->id}}" data-modal-toggle="eventEditForm" class="bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs h-6">
                                             AddEvent
                                         </button>
                                         <button id="addPostBtn" data-modal-toggle="postEditForm" data-club-id="{{$club->id}}" data-modal-target="postEditForm" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-2 rounded text-xs h-6">
@@ -374,8 +378,6 @@
                         </div>
                     </form>
 
-
-
                 </div>
             </div>
 
@@ -401,102 +403,85 @@
                     </div>
 
                     <!-- form body -->
-                    <form class=" relative flex flex-wrap">
-
+                    <form class=" relative flex flex-wrap" method="post" action="{{route('events.store')}}" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="club_id" id="club_id" value="">
+                        <input type="hidden" id="selectedRepresentedId" name="represented_id" value="">
                         <!----Left section in form---->
-
                         <div class="p-3 w-full md:w-1/2 relative max-w-lg">
                             <!--------Add  image field  -->
                             <div class="relative  mt-1">
                                 <!-------Uplead photo for event logo -->
                                 <label class=" block mb-2 text-sm font-medium text-white" for="user_avatar">Upload Event's Picture:</label>
-                                <input class="block w-full text-sm text-[#f5f5f7] border border-[#424650] rounded-lg cursor-pointer bg-[#2a2d35] text-[#424650] focus:outline-none  " aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*">
+                                <input name="image" class="block w-full text-sm text-[#f5f5f7] border border-[#424650] rounded-lg cursor-pointer bg-[#2a2d35] text-[#424650] focus:outline-none  " aria-describedby="user_avatar_help" id="user_avatar" type="file" accept="image/*">
                                 <div class=" text-xs text-[#f5f5f7]" id="user_avatar_help">Upload a photo highlighting details for your event.</div>
                             </div>
                             <!---------------------------->
-
                             <!--------Event name field  -->
                             <div class="relative  mt-2">
                                 <label for="helper-text" class="block mb-2 text-sm font-medium text-[#f5f5f7] ">Event Name:</label>
-                                <input type="text" id="eventName"  class="bg-[#2a2d35] border border-[#424650]  text-gray-200 text-sm rounded-lg  focus:border-[#827FFF] block w-full p-2.5    dark:placeholder-gray-400 " placeholder="Enter the name of your Event..">
-
+                                <input name="name" type="text" id="eventName"  class="bg-[#2a2d35] border border-[#424650]  text-gray-200 text-sm rounded-lg  focus:border-[#827FFF] block w-full p-2.5    dark:placeholder-gray-400 " placeholder="Enter the name of your Event..">
                             </div>
                             <!---------------------------->
-
                             <!--------Search for speaker field-->
-                            <div class=" mt-2">
-                                <!-- SearchBox -->
-                                <label class="block mb-2 text-sm font-medium text-[#f5f5f7]">Search for Speaker:</label>
-                                <div class="  w-full " data-hs-combo-box='{
-                                      "groupingType": "default",
-                                      "isOpenOnFocus": true,
-                                      "apiUrl": "../assets/data/searchbox.json",
-                                      "apiGroupField": "category",
-                                      "outputItemTemplate": "<div data-hs-combo-box-output-item><span class=\"flex items-center cursor-pointer py-2 px-4 w-full text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 dark:text-neutral-200 dark:focus:bg-neutral-700\"><div class=\"flex items-center w-full\"><div class=\"flex items-center justify-center rounded-full bg-gray-200 size-6 overflow-hidden me-2.5\"><img class=\"flex-shrink-0\" data-hs-combo-box-output-item-attr=&apos;[{\"valueFrom\": \"image\", \"attr\": \"src\"}, {\"valueFrom\": \"name\", \"attr\": \"alt\"}]&apos; /></div><div data-hs-combo-box-output-item-field=\"name\" data-hs-combo-box-search-text data-hs-combo-box-value></div></div><span class=\"hidden hs-combo-box-selected:block\"><svg class=\"flex-shrink-0 size-3.5 text-blue-600 dark:text-blue-500\" xmlns=\"http:.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><polyline points=\"20 6 9 17 4 12\"></polyline></svg></span></span></div>",
-                                      "groupingTitleTemplate": "<div class=\"text-xs uppercase text-gray-500 m-3 mb-1 dark:text-neutral-500\"></div>"
-                                    }'>
-                                    <div class="relative">
-                                        <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
-                                            <svg class="flex-shrink-0 size-4 text-[#f5f5f7] " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                                <circle cx="11" cy="11" r="8"></circle>
-                                                <path d="m21 21-4.3-4.3"></path>
-                                            </svg>
-                                        </div>
-                                        <input class="py-3 ps-10 pe-4 block w-full border-[#424650] bg-[#2A2D35] rounded-lg text-sm focus:border-[#827FFF]  disabled:opacity-50 disabled:pointer-events-none " type="text" placeholder="Type a name" value="" data-hs-combo-box-input="">
+                            <div class="p-2 relative">
+                                <label class="block mb-2 text-sm font-medium text-[#f5f5f7]" for="searchInput">Search for Speaker:</label>
+                                <div class="relative w-full">
+                                    <div class="absolute inset-y-0 start-0 flex items-center pointer-events-none z-20 ps-3.5">
+                                        <svg class="flex-shrink-0 size-4 text-[#f5f5f7]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <circle cx="11" cy="11" r="8"></circle>
+                                            <path d="m21 21-4.3-4.3"></path>
+                                        </svg>
                                     </div>
-
-                                    <!-- SearchBox Dropdown -->
-                                    <div class="absolute z-50 w-full  rounded-lg bg-[#2a2d35] border-[#424650]"  data-hs-combo-box-output="">
-                                        <div class="max-h-72 rounded-b-lg overflow-hidden overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full  [&::-webkit-scrollbar-track]:bg-[#] [&::-webkit-scrollbar-thumb]:bg-neutral-500" data-hs-combo-box-output-items-wrapper=""></div>
+                                    <input id="searchInput" class="py-3 pl-10 pr-4 w-full border-[#424650] bg-[#2A2D35] rounded-lg text-sm text-[#f5f5f7] focus:border-[#827FFF] placeholder-[#f5f5f7]" type="text" placeholder="Type a name" autocomplete="off">
+                                    <div id="searchResults" class="absolute z-50 w-full mt-1 rounded-lg bg-[#2a2d35] border-[#424650] hidden">
                                     </div>
-                                    <!-- End SearchBox Dropdown -->
                                 </div>
-                                <!-- End SearchBox -->
                             </div>
                             <!---------------------------->
 
                             <!--------Description field-->
                             <div class="mt-2">
                                 <label for="descriptionEvent" class="block  text-sm font-medium text-[#f5f5f7] ">Description:</label>
-                                <textarea id="descriptionEvent" rows="4" class="block p-2.5 w-full text-sm text-[#f5f5f7] bg-[#2a2d35] rounded-lg border border-[#424650]  focus:border-[#827FFF] placeholder-gray-400 " placeholder="Explain the event in more details..."  ></textarea>
+                                <textarea name="description" id="descriptionEvent" rows="4" class="block p-2.5 w-full text-sm text-[#f5f5f7] bg-[#2a2d35] rounded-lg border border-[#424650]  focus:border-[#827FFF] placeholder-gray-400 " placeholder="Explain the event in more details..."  ></textarea>
                             </div>
 
                             <!---Select location-->
                             <div class="mt-2">
                                 <label class="block mb-2 text-sm font-medium text-white" for="user_avatar">Choose a Location:</label>
-
                                 <label for="Location" class="sr-only">Select a Location</label>
-                                <select id="Location" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                <select id="Location" name="event_category_id" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
                                     <option selected>Select a Location</option>
                                     <!-- Locations for the event -->
-                                    <option value="Uskudar_Carsi_Campus">Üsküdar Çarşı Campus</option>
+                                    @foreach($eventCategories as $eventCategory)
+                                    <option value="{{$eventCategory->id}}">{{$eventCategory->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <!---------------------------->
                         </div>
-
                         <!------------------------------------------------->
 
                         <!----Right section in form---->
                         <div class="p-3 w-full md:w-1/2 relative max-w-lg">
-
-
                             <!----Select hall-->
                             <div class="mt-1">
                                 <label class="block mb-1 text-sm font-medium text-white" for="block">Choose a hall:</label>
-
                                 <label for="Hall" class="sr-only">Select a Hall</label>
-                                <select id="Hall" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                <select id="subcategory" name="child_id" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
                                     <option selected disabled>Select a Hall</option>
                                 </select>
                             </div>
+
                             <!--------Select tag-->
                             <div class="mt-1">
                                 <label class="block mb-1 text-sm font-medium text-white" for="user_avatar">Choose a Tag:</label>
                                 <label for="Tags" class="sr-only">Select a Tag</label>
-                                <select id="Tags" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                <select name="tag_id" id="Tags" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
                                     <option selected>Select a Tag</option>
-                                    <option value="Academic">Academic</option>
+                                    @foreach($tags as $tag)
+                                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <!--------Select gender-->
@@ -504,7 +489,7 @@
                                 <label class="block mb-1 text-sm font-medium text-white">Gender:</label>
 
                                 <label for="gender" class="sr-only">Select Gender</label>
-                                <select id="gender" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
+                                <select name="gender" id="gender" class="bg-[#2a2d35] text-[#f5f5f7] text-sm rounded-lg border border-[#424650] focus:border-[#827FFF] block w-full p-2.5">
                                     <option selected>Select Gender</option>
                                     <!--  Gender -->
                                     <option value="Both">Both</option>
@@ -523,7 +508,7 @@
                                         </svg>
                                     </div>
                                     <!-- Set the default value to "09:00" -->
-                                    <input type="time" id="startTime" class="bg-[#2a2d35] border leading-none border-[#424650] text-[#f5f5f7] text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5" min="09:00" max="18:00" value="09:00" />
+                                    <input name="start_time" type="time" id="startTime" class="bg-[#2a2d35] border leading-none border-[#424650] text-[#f5f5f7] text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5" min="09:00" max="18:00" value="09:00" />
                                 </div>
                             </div>
 
@@ -537,7 +522,7 @@
                                         </svg>
                                     </div>
                                     <!-- Set the default value to "06:00" -->
-                                    <input type="time" id="endTime" class="bg-[#2a2d35] border leading-none border-[#424650] text-[#f5f5f7] text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5" min="09:00" max="18:00" value="18:00" />
+                                    <input name="end_time" type="time" id="endTime" class="bg-[#2a2d35] border leading-none border-[#424650] text-[#f5f5f7] text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5" min="09:00" max="18:00" value="18:00" />
                                 </div>
                             </div>
 
@@ -551,7 +536,7 @@
                                             <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
                                         </svg>
                                     </div>
-                                    <input id="dateEvent"  type="date" class=" bg-[#2a2d35] border border-[#424650] text-[#f5f5f7] text-sm rounded-lg focus:outline-none focus:border-[#827FFF] block w-full pl-5 p-2.5" placeholder="Select date" >
+                                    <input name="date_event" id="dateEvent"  type="date" class=" bg-[#2a2d35] border border-[#424650] text-[#f5f5f7] text-sm rounded-lg focus:outline-none focus:border-[#827FFF] block w-full pl-5 p-2.5" placeholder="Select date" >
                                 </div>
 
 
@@ -572,9 +557,6 @@
                             </div>
 
                         </div>
-
-
-
                     </form>
 
                 </div>
@@ -609,7 +591,6 @@
                             <div class=" text-xs text-[#f5f5f7]" >Clubs logo are useful for establishing your club's visual identity, and leaving a memorable impression on visitors.</div>
                         </div>
                         <!--Club name input -->
-
                         <div class=" p-2 relative">
                             <label for="addClubName" class="block mb-2 text-sm font-medium text-[#f5f5f7]">Enter Club's Name:</label>
                             <input name="club_name" type="text" required id="addClubName" class="bg-[#2a2d35] border border-[#424650] text-white text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5 placeholder-white" placeholder="Enter the title of your Club..">
@@ -618,7 +599,6 @@
                         <!-- Left Section in Form -->
                             <!-- Hidden input field for storing the selected user ID -->
                             <input type="hidden" id="selectedRepresentedId" name="represented_id" value="">
-
                             <!-- Search for speaker field -->
                             <div class="p-2 relative">
                                 <label class="block mb-2 text-sm font-medium text-[#f5f5f7]" for="searchInput">Search for Club Manager:</label>
@@ -631,7 +611,6 @@
                                     </div>
                                     <input id="searchInput" class="py-3 pl-10 pr-4 w-full border-[#424650] bg-[#2A2D35] rounded-lg text-sm text-[#f5f5f7] focus:border-[#827FFF] placeholder-[#f5f5f7]" type="text" placeholder="Type a name" autocomplete="off">
                                     <div id="searchResults" class="absolute z-50 w-full mt-1 rounded-lg bg-[#2a2d35] border-[#424650] hidden">
-                                        <!-- Results will appear here -->
                                     </div>
                                 </div>
                             </div>
@@ -651,11 +630,8 @@
                                     @foreach($clubs as $club)
                                         <option value="{{ $club->category->id }}">{{ $club->category->name }}</option>
                                     @endforeach
-
                                 </select>
                             </div>
-
-
                         </div>
 
                         <div class="p-4  flex justify-end">
@@ -666,10 +642,7 @@
                                 Cancel
                             </button>
                         </div>
-
                     </form>
-
-
                 </div>
             </div>
 
@@ -683,6 +656,8 @@
 
 <!----------------------------------------------------->
 @section('scripts')
+    <!-- Include SweetAlert CSS and JS from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <!---------search functionality----------->
 
@@ -820,55 +795,29 @@
     });
 </script>
 <!---------------------------------------->
-
-
 <!-----------Location and hall script---------->
 <script>
-    // Get references to the dropdowns
-    var locationDropdown = document.getElementById("Location");
-    var blockDropdown = document.getElementById("Hall");
+    document.getElementById("Location").addEventListener("change", function() {
+        var parentId = this.value;
+        var url = `/sks/event-categories/${parentId}/subcategories`;
 
-    // Define the options for each block based on the location selection
-    var blockOptions = {
-        "Uskudar_Carsi_Campus": ["Classrom A", "Classrom B", "Classrom C", "Classrom D"],
-        "Uskudar_Altunizade_Central_Campus": ["Classrom X", "Classrom Y", "Classrom Z"],
-        "Uskudar_Altunizade_South_Campus": ["Classrom 1", "Classrom 2", "Classrom 3"],
-        "Faculty_of_Medicine_NP_Campus": ["Classrom Block 1", "Medicine Block 2", "Medicine Block 3"],
-        "Faculty_of_Dentistry_NP_Campus": ["Dentistry Block 1", "Dentistry Block 2", "Dentistry Block 3"]
-    };
+        fetch(url)
+            .then(response => response.json())
+            .then(subcategories => {
+                var subcategoryDropdown = document.getElementById("subcategory");
+                subcategoryDropdown.innerHTML = '<option selected disabled>Select a Subcategory</option>';
+                subcategories.forEach(function(subcategory) {
+                    var option = document.createElement("option");
+                    option.textContent = subcategory.name;
+                    option.value = subcategory.id;
+                    subcategoryDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error loading subcategories:', error));
+    });
 
-    // Function to populate the block dropdown based on the selected location
-    function populateBlockDropdown() {
-        // Clear existing options
-        blockDropdown.innerHTML = '<option selected disabled>Select a Hall</option>';
-
-        // Get the selected location
-        var selectedLocation = locationDropdown.value;
-
-        // Populate options based on the selected location
-        if (blockOptions[selectedLocation]) {
-            blockOptions[selectedLocation].forEach(function(option) {
-                var newOption = document.createElement("option");
-                newOption.text = option;
-                newOption.value = option;
-                blockDropdown.add(newOption);
-            });
-        }
-    }
-
-    // Event listener to call the populateBlockDropdown function when the location dropdown changes
-    locationDropdown.addEventListener("change", populateBlockDropdown);
-
-    // Populate block dropdown initially
-    populateBlockDropdown();
 </script>
 <!---------------------------------------->
-
-
-
-
-
-
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -885,7 +834,21 @@
     });
 
 </script>
+    //create event
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const postBtn = document.querySelectorAll('#addEventBtn');
+            postBtn.forEach(button => {
+                button.addEventListener('click', function () {
+                    const clubId = this.getAttribute('data-club-id');
+                    const form = document.querySelector('#eventEditForm form');
+                    const clubIdInput = form.querySelector('#club_id');
+                    clubIdInput.value = clubId;
+                });
+            });
+        });
 
+    </script>
 <script>
     document.getElementById('cancelUserForm').addEventListener('click', function () {
         const form = document.querySelector('#postEditForm form');
@@ -975,12 +938,59 @@
         closeModal();
     });
 </script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteButtons = document.querySelectorAll('.deleteClubBtn');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const clubRow = this.closest('tr');
+                    const clubId = clubRow.dataset.clubId; // Using dataset to fetch the club ID
 
-    <!---- for create club functionality -->
-
-
-    <!--- for add Post functionality----->
-
-
-
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: "{{ route('clubs.destroy', ['club' => ':clubId']) }}".replace(':clubId', clubId),
+                                type: 'DELETE',
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function(data) {
+                                    if (data.success) {
+                                        clubRow.remove();
+                                        Swal.fire(
+                                            'Deleted!',
+                                            'Club has been deleted.',
+                                            'success'
+                                        );
+                                    } else {
+                                        Swal.fire(
+                                            'Error!',
+                                            data.error,
+                                            'error'
+                                        );
+                                    }
+                                },
+                                error: function(xhr, status, error) {
+                                    console.error('Error:', status, error);
+                                    Swal.fire(
+                                        'Failed!',
+                                        'Failed to delete the club. ' + error,
+                                        'error'
+                                    );
+                                }
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection

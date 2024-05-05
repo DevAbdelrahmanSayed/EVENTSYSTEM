@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\PostRequest;
 use App\Models\Club;
 use App\Models\Post;
+use App\Models\User;
 use Auth;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -15,6 +17,8 @@ class PostController extends Controller
 {
     public function index()
     {
+        $user = Auth::id();
+        User::where('id',$user)->update(['last_viewed_posts' => Carbon::now()]);
         $posts = Post::with('user')->paginate(10);
         return view('Dashboard.post', compact('posts'));
     }

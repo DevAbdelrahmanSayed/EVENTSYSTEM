@@ -16,7 +16,9 @@ Post extends Model
         'image',
         'club_id',
         'user_id',
-        'status'
+        'status',
+        'last_viewed_posts',
+        'last_viewed_events'
     ];
     protected $casts = [
         'created_at' => 'datetime:Y-m-d',

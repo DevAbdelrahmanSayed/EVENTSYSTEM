@@ -21,6 +21,8 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('profile');
+            $table->dateTime('last_viewed_posts')->nullable();
+            $table->dateTime('last_viewed_events')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

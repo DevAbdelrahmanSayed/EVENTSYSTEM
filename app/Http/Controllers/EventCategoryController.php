@@ -7,40 +7,16 @@ use Illuminate\Http\Request;
 
 class EventCategoryController extends Controller
 {
-    public function index()
+    public function getCategories(Request $request)
     {
-        return EventCategory::all();
+        $subcategories = EventCategory::whereNull('parent_id')->get();
+        return response()->json($subcategories);
     }
-
-    public function store(Request $request)
+    public function getSubcategories(Request $request)
     {
-        $data = $request->validate([
-            'name' => ['required'],
-        ]);
+        $parentId = $request->input('parent_id');
+        $subcategories = EventCategory::where('parent_id', $parentId)->get();
 
-        return EventCategory::create($data);
-    }
-
-    public function show(EventCategory $eventCategory)
-    {
-        return $eventCategory;
-    }
-
-    public function update(Request $request, EventCategory $eventCategory)
-    {
-        $data = $request->validate([
-            'name' => ['required'],
-        ]);
-
-        $eventCategory->update($data);
-
-        return $eventCategory;
-    }
-
-    public function destroy(EventCategory $eventCategory)
-    {
-        $eventCategory->delete();
-
-        return response()->json();
+        return response()->json($subcategories);
     }
 }

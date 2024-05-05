@@ -365,20 +365,14 @@
                         <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
-
-
-                        <span class="ml-3 text-white">  Events</span>
-                    </a>
+                        <span class="ml-3 text-white">Events @if($newEventsCount > 0)<span class="ml-1 rounded bg-red-500 px-2 py-1 text-xs font-semibold text-white">{{$newEventsCount}}</span>@endif</span>                    </a>
                 </li>
                 <li>
                     <a href="{{route('posts.index')}}" class="flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF]  ">
                         <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
-
-
-                        <span class="ml-3 text-white">Posts</span>
-                    </a>
+                        <span class="ml-3 text-white">Posts @if($newPostsCount > 0)<span class="ml-1 rounded bg-red-500 px-2 py-1 text-xs font-semibold text-white">{{$newPostsCount}}</span>@endif</span>                    </a>
                 </li>
             </ul>
 

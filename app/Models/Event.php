@@ -5,25 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\User;
+
 class Event extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'tag',
-        'location',
-        'date_event',
-        'club_id',
-        'start_time',
-        'end_time',
-        'user_id',
-        'represented_id',
-        'event_category_id',
-        'place',
-        'location'
+        'club_id', 'represented_id', 'name', 'description',
+        'event_category_id', 'child_id', 'tag_id', 'gender','user_id',
+        'start_time', 'end_time', 'date_event', 'image',
     ];
 
 
@@ -50,6 +40,14 @@ class Event extends Model
     public function category()
     {
         return $this->belongsTo(EventCategory::class, 'event_category_id');
+    }
+    public function childCategory()
+    {
+        return $this->belongsTo(EventCategory::class, 'child_id');
+    }
+    public function tag()
+    {
+        return $this->belongsTo(tag::class);
     }
     public function approvals()
     {

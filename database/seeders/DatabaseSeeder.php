@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         EventCategory::factory()->count(10)->create();
         EventCategory::factory()->count(5)->subcategory()->create();
 
-        Event::factory()->count(10)->create();
         Post::factory()->count(10)->create();
 
 
