@@ -213,7 +213,6 @@
                     modal.querySelector('.modal-image').src = "{{ asset('storage/' . $post->image) }}";
 
 
-
                     modal.querySelector('.modal-title').textContent = post.name;
                     modal.querySelector('.modal-date').textContent = `Date: ${post.created_at}`;
                     modal.querySelector('.modal-description').textContent = `Description: ${post.description}`;

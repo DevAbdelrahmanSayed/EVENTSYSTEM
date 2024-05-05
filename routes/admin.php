@@ -19,9 +19,9 @@ Route::get('/',[DashboardController::class,'index'])->name('sks.index');
 Route::get('/search', [SearchController::class, 'search'])->name('search');
 Route::resource('admin/clubs',\App\Http\Controllers\Admin\ClubController::class);
 Route::resource('posts',\App\Http\Controllers\Admin\PostController::class);
-Route::resource('events',\App\Http\Controllers\Admin\EventController::class);
+Route::resource('admin/events',\App\Http\Controllers\Admin\EventController::class);
 Route::post('approve',[AdminController::class,'approve'])->name('sks.approve');
-
+    Route::get('event-categories/{parentId}/subcategories', [\App\Http\Controllers\Admin\EventCategoryController::class, 'getSubcategories']);
 Route::post('rejection',[AdminController::class,'rejection'])->name('sks.rejection');
 
 });

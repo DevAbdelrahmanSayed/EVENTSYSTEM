@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CLubRequest;
 use App\Http\Requests\Admin\PostRequest;
 use App\Models\Club;
+use App\Models\EventCategory;
 use App\Models\Post;
+use App\Models\tag;
 use Auth;
 use Exception;
 use Illuminate\Http\Request;
@@ -17,7 +19,9 @@ class ClubController extends Controller
     public function index()
     {
         $clubs= Club::with('user','category','representative')->latest()->paginate(18);
-        return view('Dashboard.club', compact('clubs'));
+        $eventCategories = EventCategory::whereNull('parent_id')->get();
+        $tags = tag::all();
+        return view('Dashboard.club', compact('clubs','eventCategories','tags'));
     }
     public function store(CLubRequest $request)
     {
@@ -46,4 +50,19 @@ class ClubController extends Controller
         return back();
 
     }
+
+
+
+    public function destroy($id)
+    {
+        try {
+            $club = Club::findOrFail($id);
+            $club->delete();
+            return response()->json(['success' => 'Club deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error deleting club: ' . $e->getMessage()], 500);
+        }
+    }
+
+
 }
