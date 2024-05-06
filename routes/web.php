@@ -31,7 +31,14 @@ Route::get('/categories/{category}/posts', [ClubController::class, 'getClubsByCa
 
 
 //event
-Route::resource('events', EventController::class)->middleware('auth');
+Route::resource('club/events', EventController::class)
+    ->middleware('auth')
+    ->names('club.events');
+
+Route::resource('club/posts', \App\Http\Controllers\PostController::class)
+    ->middleware('auth')
+    ->names('club.post');
+
 
 //Notification
 Route::resource('notification', \App\Http\Controllers\NotificationController::class)->middleware('auth');

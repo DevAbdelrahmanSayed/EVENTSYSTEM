@@ -42,13 +42,22 @@ class ClubController extends Controller
         return redirect()->route('clubs.index')->with('success', 'Club created successfully.');
     }
 
-    // Display the specified club and related posts by category.
     public function show(Club $club)
     {
-        $club = Club::findOrFail($club->id);
-        $club->with('posts','events','events.represented')->latest();
+        $club = Club::with([
+            'posts' => function ($query) {
+                $query->approvedOrAdmin();
+            },
+            'events' => function ($query) {
+                $query->approvedOrAdmin();
+            },
+            'events.represented','events.category','events.childCategory','events.tag'
+        ])->findOrFail($club->id);
+
         return view('Club.details', compact('club'));
     }
+
+
 
     // Show the form for editing the specified club.
     public function edit(Club $club)

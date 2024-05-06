@@ -41,13 +41,14 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($approved as $approve)
                 <tr class="bg-[#111827] border-[#424650] ">
                     <td class="px-6 py-4 font-small text-center text-[#f5f5f7] whitespace-nowrap  ">
-                        Edit club info
+                        {{$approve->action_type}}
                     </td>
 
                     <td class="px-6 py-4 font-small text-center text-[#f5f5f7] ">
-                        5min
+                        {{$approve->updated_at->diffForHumans()}}
                     </td>
                     <td class="px-6 py-4 font-small text-center text-green-500 ">
                         Approved
@@ -57,7 +58,7 @@
                     </td>
                 </tr>
                 <!-- Add more rows as needed -->
-
+                @endforeach
                 </tbody>
             </table>
         </div>
@@ -86,13 +87,16 @@
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($rejection as $reject)
                 <tr class="bg-[#111827] border-[#424650] ">
+
                     <td class="px-6 py-4 font-small text-center text-[#f5f5f7] whitespace-nowrap  ">
-                        Edit club info
+                        {{$reject->action_type}}
                     </td>
 
                     <td class="px-6 py-4 font-small text-center text-[#f5f5f7] ">
-                        5min
+                        {{$reject->updated_at->diffForHumans()}}
+
                     </td>
                     <td class="px-6 py-4 font-small text-center text-red-500 ">
                         Rejected
@@ -101,6 +105,7 @@
                         <a href="#" class="font-small text-[#827FFF] hover:underline" onclick="showDetailsRejected(this)">Show details</a>
                     </td>
                 </tr>
+                @endforeach
                 <!-- Add more rows as needed -->
 
                 </tbody>

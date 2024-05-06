@@ -406,7 +406,7 @@
                     <form class=" relative flex flex-wrap" method="post" action="{{route('events.store')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="club_id" id="club_id" value="">
-                        <input type="hidden" id="selectedRepresentedId" name="represented_id" value="">
+                        <input type="hidden" id="selectedRepresentedIdEvent" name="represented_id" value="">
                         <!----Left section in form---->
                         <div class="p-3 w-full md:w-1/2 relative max-w-lg">
                             <!--------Add  image field  -->
@@ -433,8 +433,8 @@
                                             <path d="m21 21-4.3-4.3"></path>
                                         </svg>
                                     </div>
-                                    <input id="searchInput" class="py-3 pl-10 pr-4 w-full border-[#424650] bg-[#2A2D35] rounded-lg text-sm text-[#f5f5f7] focus:border-[#827FFF] placeholder-[#f5f5f7]" type="text" placeholder="Type a name" autocomplete="off">
-                                    <div id="searchResults" class="absolute z-50 w-full mt-1 rounded-lg bg-[#2a2d35] border-[#424650] hidden">
+                                    <input id="searchInputEvent" class="py-3 pl-10 pr-4 w-full border-[#424650] bg-[#2A2D35] rounded-lg text-sm text-[#f5f5f7] focus:border-[#827FFF] placeholder-[#f5f5f7]" type="text" placeholder="Type a name" autocomplete="off">
+                                    <div id="searchResultsEvent" class="absolute z-50 w-full mt-1 rounded-lg bg-[#2a2d35] border-[#424650] hidden">
                                     </div>
                                 </div>
                             </div>
@@ -584,6 +584,7 @@
                     <!-- Modal body -->
 
                     <form  class="max-w-lg mx-auto p-2" id="clubForm" action="{{ route('clubs.store') }}" method="post" enctype="multipart/form-data" >
+                        @csrf
                         <!--image input-->
                         <div class=" p-2 relative">
                             <label class="block mb-2 text-sm font-medium text-white" >Add Club's logo:</label>
@@ -595,7 +596,7 @@
                             <label for="addClubName" class="block mb-2 text-sm font-medium text-[#f5f5f7]">Enter Club's Name:</label>
                             <input name="club_name" type="text" required id="addClubName" class="bg-[#2a2d35] border border-[#424650] text-white text-sm rounded-lg focus:border-[#827FFF] block w-full p-2.5 placeholder-white" placeholder="Enter the title of your Club..">
                         </div>
-                        @csrf
+
                         <!-- Left Section in Form -->
                             <!-- Hidden input field for storing the selected user ID -->
                             <input type="hidden" id="selectedRepresentedId" name="represented_id" value="">
@@ -659,6 +660,49 @@
     <!-- Include SweetAlert CSS and JS from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    //search input for event
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const searchInput = document.getElementById('searchInputEvent');
+            const searchResultsEvent = document.getElementById('searchResultsEvent');
+            const userIdInput = document.getElementById('selectedRepresentedIdEvent');
+
+            searchInput.addEventListener('input', function() {
+                const query = searchInput.value;
+                if (!query) {
+                    searchResultsEvent.innerHTML = '';
+                    searchResultsEvent.classList.add('hidden');
+                    return;
+                }
+                fetch(`/sks/search?name=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(users => {
+                        if (users.length) {
+                            searchResultsEvent.innerHTML = users.map(user =>
+                                `<div class="p-2 hover:bg-[#827FFF] cursor-pointer text-sm text-[#f5f5f7]" data-user-id="${user.id}" data-user-name="${user.name}">
+                            ${user.name}
+                        </div>`
+                            ).join('');
+                            searchResultsEvent.classList.remove('hidden');
+                        } else {
+                            searchResultsEvent.innerHTML = '<div class="p-2 text-sm text-[#f5f5f7] hover:bg-[#827FFF]">No results found</div>';
+                            searchResultsEvent.classList.remove('hidden');
+                        }
+                    });
+            });
+
+            // Event delegation for dynamic content
+            searchResultsEvent.addEventListener('click', function(event) {
+                const target = event.target;
+                if (target.getAttribute('data-user-id')) {
+                    searchInput.value = target.getAttribute('data-user-name');
+                    userIdInput.value = target.getAttribute('data-user-id');
+                    searchResultsEvent.classList.add('hidden');
+                }
+            });
+        });
+
+    </script>
 <!---------search functionality----------->
 
 <script>
@@ -858,7 +902,6 @@
 </script>
 
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // First section for speaker search
@@ -899,7 +942,6 @@
     });
 </script>
 
-<!------------------SCRUM MASTER WERE HERE-------->
 
   <!---for edit club functionality -->
 <script>

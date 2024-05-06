@@ -69,6 +69,7 @@
                 <p class="text-lg font-semibold text-gray-900 text-white">{{Auth::user()->name}}</p>
                 <p class="text-white">ID: {{Auth::user()->un_id}}</p>
             </div>
+            @if(Auth::user()->type == 'club')
             <a href="{{route('notification.index')}}" class="relative inline-flex rounded-full  hover:bg-[#827FFF] ml-5">
                 <svg class="w-[32px] h-[32px] text-white round " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
@@ -76,57 +77,12 @@
                 <span class="absolute min-w-[12px] min-h-[12px] rounded-full py-1 px-1 text-xs font-medium content-[''] leading-none grid place-items-center top-[1%] right-[0%] translate-x-2/4 -translate-y-2/4 bg-red-500 text-white">
             </span>
             </a>
+            @endif
         </div>
     </div>
     <div class="overflow-y-auto py-3 px-3 h-full bg-[#323741] border-t border-[#424650]">
         <!-- Search form if needed -->
         <ul class="space-y-2 ">
-            @if(Auth::user()->type == 'club' && Auth::user()->type == 'sks')
-            <li>
-                <a
-                    href="#"
-                    class="flex items-center p-2 text-base font-medium  rounded-lg text-white hover:bg-[#827FFF]  group  "
-                    aria-current="page"
-                >
-                    <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                    </svg>
-                    <span class="ml-3 text-white">My Club</span>
-                </a>
-            </li>
-            <li>
-                <a
-                    href="#"
-                    class="border-t border-[#424650] flex items-center p-2 text-base font-medium   text-white hover:bg-[#827FFF] " aria-controls="dropdown-authentication"
-                    data-collapse-toggle="dropdown-authentication1"
-                >
-                    <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round" stroke-width="2" d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
-                    </svg>
-                    <span class="ml-3 text-white">Content Management </span>
-                </a>
-            </li>
-            <ul id="dropdown-authentication1" class="hidden py-2 space-y-2 ">
-                <li>
-                    <a href="Create event.html" class="border-t border-[#424650] flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF] ">
-                        <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                        </svg>
-
-                        <span class="ml-3 text-white"> Create Event</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="create post.html" class="flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF]  ">
-                        <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                        </svg>
-                        <span class="ml-3 text-white"> Create Post</span>
-                    </a>
-                </li>
-
-            </ul>
-            @endif
             <li>
                 <a
                     href="{{route('club.index')}}"
@@ -134,9 +90,10 @@
                     aria-current="page"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    <span class="ml-3 text-white">Club1</span>
+                    <span class="ml-3 text-white">Clubs</span>
                 </a>
             </li>
+            @if(Auth::user()->type == 'club')
                 <li>
                     <a
                         href="#"
@@ -153,17 +110,7 @@
                 </li>
                 <ul id="dropdown-authentication1" class="hidden py-2 space-y-2 ">
                     <li>
-                        <a href="abed" class="border-t border-[#424650] flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF] ">
-                            <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
-                            </svg>
-
-
-                            <span class="ml-3 text-white">  clubs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="EVENTS.html" class="border-t border-[#424650] flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF] ">
+                        <a href="{{route('club.events.create')}}" class="border-t border-[#424650] flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF] ">
                             <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
@@ -173,7 +120,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="post.html" class="flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF]  ">
+                        <a href="{{route('club.post.create')}}" class="flex items-center p-2 pl-3 w-full text-base font-medium text-gray-900 rounded-lg transition duration-75 group hover:bg-[#827FFF]  ">
                             <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 7.757v8.486M7.757 12h8.486M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                             </svg>
@@ -187,6 +134,7 @@
 
 
                 </ul>
+            @endif
 
                 <li>
                 <a

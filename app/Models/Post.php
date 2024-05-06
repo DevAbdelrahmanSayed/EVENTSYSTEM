@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Builder;
 
 class
 Post extends Model
@@ -39,4 +41,17 @@ Post extends Model
     {
         return $this->morphMany(Approval::class, 'content');
     }
-}
+    public function scopeApprovedOrAdmin(Builder $query)
+    {
+        return $query->where(function ($query) {
+            $query->whereHas('approvals', function ($subQuery) {
+                $subQuery->where('is_approved', true)
+                    ->whereIn('action_type', ['create', 'update']);
+            });
+
+            // Additional check for the admin user
+            if (Auth::check() && Auth::user()->type === 'sks') {
+                $query->orWhere('user_id', Auth::id());
+            }
+        });
+    }}

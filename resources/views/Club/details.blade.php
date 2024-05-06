@@ -28,7 +28,7 @@
                 <div class="col-span-12 lg:col-span-5">
                     <div class="items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650] relative">
                         <a>
-                            <img class="p-2 flex-wrap w-[250px] h-[250px] rounded-full sm:rounded-none sm:rounded-l-lg " src="{{$club->image}}" alt="Bonnie Avatar">
+                            <img class="p-2 flex-wrap w-[250px] h-[250px] rounded-full sm:rounded-none sm:rounded-l-lg" src="{{ asset('storage/' . $club->image) }}" alt="Bonnie Avatar">
                         </a>
                         <div class="flex flex-col justify-center flex-grow ml-5">
                             <h1 class="ml-[300px] text-3xl font-bold text-white mb-2  mt-3">{{$club->name}}</h1>
@@ -63,7 +63,7 @@
                     @foreach ($club->posts as $post)
                         <div class="items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650] hover:border-[#827FFF] relative">
                             <a href="#">
-                                <img class="w-[350px] h-[230px] rounded-lg sm:rounded-none object-cover" src="{{ $post->image }}" alt="{{ $post->name }}">
+                                <img class="w-[350px] h-[230px] rounded-lg sm:rounded-none object-cover" src="{{asset('storage/'.$post->image ) }}" alt="{{ $post->name }}">
                             </a>
                             <div class="p-5">
                                 <h3 class="text-xl font-bold tracking-tight text-white">
@@ -97,17 +97,17 @@
                     @foreach($club->events as $event)
                         <div class="items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650] hover:border-[#827FFF] relative ">
                             <a href="#">
-                                <img class="w-[400px] rounded-lg sm:rounded-none sm:rounded-l-lg " src="{{$event->image}}" alt="{{$event->name}}">
+                                <img class="w-[400px] rounded-lg sm:rounded-none sm:rounded-l-lg " src="{{asset('storage/'.$event->image)}}" alt="{{$event->name}}">
                             </a>
                             <div class="flex flex-col justify-center flex-grow ml-5">
                                 <p class="text-sm text-white mb-1"><strong>Event name:</strong> {{$event->name??'No Name'}}</p>
                                 <p class="text-sm text-white mb-1"><strong>Start date:</strong> {{$post->date_event??'No Date'}}</p>
                                 <p class="text-sm text-white mb-1"><strong>Time:</strong> 15:00 pm</p>
                                 <p class="text-sm text-white mb-1"><strong>speaker: </strong>{{$event->represented->name??'No speaker'}}</p>
-                                <p class="text-sm text-white mb-1"><strong>Tag:</strong> Networking</p>
-                                <p class="text-sm text-white mb-1"><strong>Location:</strong> Üsküdar Çarşı Campus</p>
-                                <p class="text-sm text-white mb-1"><strong>Event_place:</strong> ÇARŞI 4. Kat Emirnebi 1 Konferans Salonu[304]</p>
-                                <p class="text-sm text-white mb-2"><strong>Description of the event:</strong>{{$event->description??'No description'}}</p>
+                                <p class="text-sm text-white mb-1"><strong>Tag:</strong> {{$event->tag->name }}</p>
+                                <p class="text-sm text-white mb-1"><strong>Location:</strong> {{$event->category->name }}</p>
+                                <p class="text-sm text-white mb-1"><strong>Event_place:</strong> {{$event->childCategory->name}}</p>
+                                <p class="text-sm text-white mb-2"><strong>Description of the event:</strong> {{$event->description??'No description'}}</p>
                                 <p class="text-sm text-white mb-2">Gender: Both</p>
                                 @if(Auth::user()->type == 'sks' || Auth::user()->type == 'club')
                                     @if(Auth::user()->id === $event->user_id)

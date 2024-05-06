@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 class Event extends Model
 {
     use HasFactory;
@@ -53,5 +54,17 @@ class Event extends Model
     {
         return $this->morphMany(Approval::class, 'content');
     }
+    public function scopeApprovedOrAdmin(Builder $query)
+    {
+        return $query->where(function ($query) {
+            $query->whereHas('approvals', function ($subQuery) {
+                $subQuery->where('is_approved', true)
+                    ->whereIn('action_type', ['Create', 'Update']);
+            });
 
-}
+            // Additional check for the admin user
+            if (Auth::check() && Auth::user()->type === 'sks') {
+                $query->orWhere('user_id', Auth::id());
+            }
+        });
+    }}

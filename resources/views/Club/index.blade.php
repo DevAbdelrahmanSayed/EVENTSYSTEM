@@ -47,7 +47,7 @@
                                 <article>
                                     <figure class="overflow-hidden rounded-t-lg">
                                         <a href="{{ route('club.show', $club->id) }}">
-                                            <img src="{{ $club->image ?: 'default-image-url.jpg' }}" alt="{{ $club->name }}"
+                                            <img src="{{asset('storage/'.$club->image)  ?: 'default-image-url.jpg' }}" alt="{{ $club->name }}"
                                                  class="object-cover w-full h-48 duration-500 ease-in-out transform hover:scale-110">
                                         </a>
                                     </figure>
@@ -121,13 +121,14 @@
                     type: 'GET',
                     success: function (response) {
                         console.log("Received data:", response);
+                        var assetUrl = "{{ asset('storage') }}";
                         if (response.data && response.data.length > 0) {
                             $('#club-posts-container').hide();
                             $('#posts-container > div').children().not('#club-template').remove();
                             response.data.forEach(function (club) {
                                 var $template = $('#club-template').clone().removeAttr('id').show();
                                 $template.find('.club-link').attr('href', "{{ route('club.show', ':id') }}".replace(':id', club.id));
-                                $template.find('.club-image').attr('src', club.image || 'default-image-url.jpg').attr('alt', club.name);
+                                $template.find('.club-image').attr('src', assetUrl + '/' + club.image || 'default-image-url.jpg').attr('alt', club.name);
                                 $template.find('.club-name-link').text(club.name).attr('href', "{{ route('club.show', ':id') }}".replace(':id', club.id));
                                 $template.find('.club-info').text(club.category.name + ' • ' + new Date(club.created_at).toLocaleDateString('en-US'));
                                 $template.find('.user-image').attr('src', club.user.profile).attr('alt', club.user.name);

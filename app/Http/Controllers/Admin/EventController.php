@@ -9,11 +9,9 @@ use App\Http\Requests\EventRequest;
 use App\Models\Club;
 use App\Models\Event;
 use App\Models\Post;
-<<<<<<< HEAD
 use App\Models\User;
 use Carbon\Carbon;
-=======
->>>>>>> origin/master
+
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
