@@ -22,8 +22,9 @@ Route::get('/', function () {
     return view('login');
 })->name('login');
 
+
 Route::get('/dashboard', function () {
-    return view('components.dashboard');
+    return view('EventPost.index');
 })->name('dashboard.index')->middleware('auth');
 
 Route::resource('club', ClubController::class)->middleware('auth');
@@ -38,6 +39,9 @@ Route::resource('club/events', EventController::class)
 Route::resource('club/posts', \App\Http\Controllers\PostController::class)
     ->middleware('auth')
     ->names('club.post');
+
+Route::resource('activity', \App\Http\Controllers\ActivityController::class)
+    ->middleware('auth');
 
 
 //Notification

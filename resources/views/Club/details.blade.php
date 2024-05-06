@@ -34,7 +34,7 @@
                             <h1 class="ml-[300px] text-3xl font-bold text-white mb-2  mt-3">{{$club->name}}</h1>
                             <h2 class=" text-[20px] text-white mb-2 mt-3"><strong>Description of the club: </strong> {{$club->description}}</h2>
                             <h2 class="text-[20px] text-white mb-1 mt-3"><strong>Creation Date: </strong>{{ $club->created_at->format('Y-m-d') }}</h2>
-                            <h2 class="text-[20px] text-white mb-5 mt-2"><strong>Type: </strong>{{$club->type}}</h2>
+                            <h2 class="text-[20px] text-white mb-5 mt-2"><strong>Category: </strong>{{$club->category->name}}</h2>
                         </div>
                         @if(Auth::user()->type == 'sks' || Auth::user()->type == 'club')
                             @if(Auth::user()->id === $club->user_id)
@@ -87,17 +87,10 @@
             </div>
             <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6 tab-content hidden bg-[#2a2d35] " id="tab2">
                 <div class="grid gap-8 mb-6 lg:mb-16 md:grid-cols-1 mt-3   ">
-                    <h3 class="text-[#F5F5F7] text-2xl font-bold">Customize by:</h3>
-                    <div class=" flex flex-wrap justify-start items-center px-2 py-3 space-x-2  rounded-lg border border-[#424650] bg-[#323741] mt-2">
-                        <button id="btnLocation" class="px-4 py-2 text-sm font-medium text-[#F5F5F7] border-[#424650] bg-[#323741] rounded-full hover:bg-[#827FFF] hover:text-[#F5F5F7] focus:z-10 focus:ring-2 focus:ring-[#827FFF]  mb-1">Location</button>
-                        <button id="btnTags" class="px-4 py-2 text-sm font-medium text-[#F5F5F7] border-[#424650] bg-[#323741]rounded-full hover:bg-[#827FFF] hover:text-[#F5F5F7] focus:z-10 focus:ring-2 focus:ring-[#827FFF]  mb-1">Tags</button>
-                        <button id="btnGender" class="px-4 py-2 text-sm font-medium text-[#F5F5F7] border-[#424650] bg-[#323741] rounded-full hover:bg-[#827FFF] hover:text-[#F5F5F7] focus:z-10 focus:ring-2 focus:ring-[#827FFF]  mb-1">Event Space</button>
-                    </div>
-                    <div id="initialButtonsContainer" class="flex flex-wrap justify-start items-center px-2 py-3 space-x-2 rounded-lg border border-[#424650] bg-[#323741]"></div>
                     @foreach($club->events as $event)
                         <div class="items-center bg-[#323741] rounded-lg shadow sm:flex border border-[#424650] hover:border-[#827FFF] relative ">
                             <a href="#">
-                                <img class="w-[400px] rounded-lg sm:rounded-none sm:rounded-l-lg " src="{{asset('storage/'.$event->image)}}" alt="{{$event->name}}">
+                                <img class="w-[400px] h-[250px]  rounded-lg sm:rounded-none sm:rounded-l-lg " src="{{asset('storage/'.$event->image)}}" alt="{{$event->name}}">
                             </a>
                             <div class="flex flex-col justify-center flex-grow ml-5">
                                 <p class="text-sm text-white mb-1"><strong>Event name:</strong> {{$event->name??'No Name'}}</p>

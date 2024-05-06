@@ -37,7 +37,7 @@
                 </svg>
                 <span class="sr-only">Toggle sidebar</span>
             </button>
-            <a href="{{route('dashboard.index')}}" class="flex items-center justify-between mr-4">
+            <a href="{{route('activity.index')}}" class="flex items-center justify-between mr-4">
                 <img
                     src="{{asset('assets/image/logo2.png')}}"
                     class="mr-3 h-8"
@@ -91,6 +91,16 @@
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
                     <span class="ml-3 text-white">Clubs</span>
+                </a>
+            </li>
+            <li>
+                <a
+                    href="{{route('activity.index')}}"
+                    class="border-t border-[#424650] flex items-center p-2 text-base font-medium  rounded-lg text-white hover:bg-[#827FFF]  group  "
+                    aria-current="page"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="square" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    <span class="ml-3 text-white">Activity</span>
                 </a>
             </li>
             @if(Auth::user()->type == 'club')
